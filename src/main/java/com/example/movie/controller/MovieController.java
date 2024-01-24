@@ -11,4 +11,9 @@ public class MovieController {
     public void test(){
         System.out.println("test.............................");
     }
+
+    @GetMapping("/list")
+    public void list(){
+
+    }
 }
