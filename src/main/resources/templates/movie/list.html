@@ -6,7 +6,11 @@
 <body>
 <div class="d-flex" id="wrapper">
     <!-- Sidebar-->
-    <div th:replace="~{layout/layout :: side}"></div>
+    <div class="border-end bg-white" >
+        <div class="sidebar-heading border-bottom bg-light"><a href="/shopping/list">Movie</a></div>
+        <div class="list-group list-group-flush" id="movie-date">
+        </div>
+    </div>
     <!-- Page content wrapper-->
     <div id="page-content-wrapper">
         <!-- Top navigation-->
@@ -49,23 +53,13 @@
 
 </body>
 <script th:inline="javascript">
-    function removeProduct(pno){
-        $.ajax({
-            url: '/shopping/remove',
-            method: 'post',
-            data: pno,
-            contentType: 'application/json; charset=utf-8',
-            success: function(){
-               alert("상품 삭제 성공")
-            },
-            error: function(){
-                alert("상품 삭제 실패")
-            }
-        });
+    var date = new Date();
+    for(var i=1; i<=7; i++){
+        date.setDate(date.getDate() + 1);
+        var day = (date.getMonth()+1) + "월 " + date.getDate() + "일";
+        $("#movie-date").append("<a class='list-group-item list-group-item-action list-group-item-light p-3'>" + day + "</a>");
+        console.log(date);
     }
 
-    function testClick(data){
-       console.log(data);
-    }
 </script>
 </html>
