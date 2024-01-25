@@ -57,8 +57,10 @@
     for(var i=1; i<=7; i++){
         date.setDate(date.getDate() + 1);
         var day = (date.getMonth()+1) + "월 " + date.getDate() + "일";
-        $("#movie-date").append("<a class='list-group-item list-group-item-action list-group-item-light p-3'>" + day + "</a>");
-        console.log(date);
+        var link = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+        console.log(link);
+        $("#movie-date").append("<a class='list-group-item list-group-item-action list-group-item-light p-3' href='/movie/detail?day=" + link + "'>" + day + "</a>");
+
     }
 
 </script>
