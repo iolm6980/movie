@@ -30,10 +30,6 @@ public class MemberRepositoryTests {
 
     @Test
     public void test(){
-        String s = "01.23 21:28";
-        SimpleDateFormat formatter = new SimpleDateFormat ( "MM.dd HH:mm");
-        Date currentTime = new Date ();
-        //String dTime = formatter.format ( currentTime );
-        log.info(currentTime);
+
     }
 }

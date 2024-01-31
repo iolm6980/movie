@@ -8,8 +8,12 @@ import com.example.movie.repository.ReplyRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.stream.IntStream;
+import java.util.*;
 
 @SpringBootTest
 public class ReplyRepositoryTests {
@@ -22,11 +26,19 @@ public class ReplyRepositoryTests {
             Movie movie = Movie.builder().mno((long)i).build();
             Member member = Member.builder().memberId("test"+i).build();
             Reply reply = Reply.builder()
-                    .Movie(movie)
+                    .movie(movie)
+                    .grade((long) (i/2))
                     .content("reply" + i)
                     .member(member)
                     .build();
             replyRepository.save(reply);
         });
+    }
+
+    @Test
+    public void getReplyList(){
+//        Pageable pageable = PageRequest.of(0, 10);
+//        Page<Reply> list = replyRepository.getReplyList(pageable);
+//        System.out.println(list);
     }
 }

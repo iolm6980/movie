@@ -1,13 +1,9 @@
 package com.example.movie.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Time;
-
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,11 +15,8 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mno;
     private String name;
-    private String time;
-    private String day;
-    private String place;
-    private String seat;
-    private String summary;
+    private Long totalGrade;
     private String path;
     private String imgName;
+
 }

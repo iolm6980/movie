@@ -1,0 +1,21 @@
+package com.example.movie.dto;
+
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class MovieDTO {
+    private Long mno;
+    private String name;
+    private String time;
+    private String date;
+    private String place;
+    private String seat;
+    private String summary;
+    private String path;
+    private String imgName;
+    private Long totalGrade;
+}

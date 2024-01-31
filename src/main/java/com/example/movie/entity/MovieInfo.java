@@ -2,24 +2,24 @@ package com.example.movie.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 @ToString
-@Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Builder
 @Entity
-public class Reply {
+public class MovieInfo{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long rno;
-
-    private String content;
-    private Long grade;
+    private Long mino;
+    private String time;
+    private String date;
+    private String place;
+    private String seat;
+    private String summary;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
-    @OneToOne(fetch = FetchType.LAZY)
-    private Member member;
 }
-
