@@ -1,5 +1,6 @@
 package com.example.movie.repositoryTests;
 
+import com.example.movie.dto.ReplyDTO;
 import com.example.movie.entity.Member;
 import com.example.movie.entity.Movie;
 import com.example.movie.entity.Reply;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.*;
 
@@ -22,8 +25,8 @@ public class ReplyRepositoryTests {
 
     @Test
     public void ReplyInsertTest(){
-        IntStream.rangeClosed(1, 10).forEach(i ->{
-            Movie movie = Movie.builder().mno((long)i).build();
+        IntStream.rangeClosed(1, 5).forEach(i ->{
+            Movie movie = Movie.builder().mno(1L).build();
             Member member = Member.builder().memberId("test"+i).build();
             Reply reply = Reply.builder()
                     .movie(movie)
@@ -35,10 +38,11 @@ public class ReplyRepositoryTests {
         });
     }
 
+
     @Test
     public void getReplyList(){
-//        Pageable pageable = PageRequest.of(0, 10);
-//        Page<Reply> list = replyRepository.getReplyList(pageable);
-//        System.out.println(list);
+
     }
+
+
 }

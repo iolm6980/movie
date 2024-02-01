@@ -16,9 +16,9 @@ public interface MovieInfoService {
                 .date(movieInfo.getDate())
                 .place(movieInfo.getPlace())
                 .seat(movieInfo.getSeat())
-                .time(movieInfo.getTime())
+                .time(movieInfo.getMovie().getTime())
                 .totalGrade(movieInfo.getMovie().getTotalGrade())
-                .summary(movieInfo.getSummary())
+                .summary(movieInfo.getMovie().getSummary())
                 .imgName(movieInfo.getMovie().getImgName())
                 .path(movieInfo.getMovie().getPath())
                 .build();

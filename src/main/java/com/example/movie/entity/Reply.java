@@ -13,13 +13,12 @@ public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rno;
-
     private String content;
     private Long grade;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 }
 

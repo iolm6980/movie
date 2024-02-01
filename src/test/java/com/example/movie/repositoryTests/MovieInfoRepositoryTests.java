@@ -25,8 +25,6 @@ public class MovieInfoRepositoryTests {
             MovieInfo movieInfo = MovieInfo.builder()
                     .movie(movie)
                     .place( i + "관")
-                    .summary("줄거리" + i)
-                    .time("1")
                     .seat("0")
                     .date(today)
                     .build();

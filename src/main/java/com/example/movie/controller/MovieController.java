@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -18,8 +19,12 @@ import java.util.Date;
 public class MovieController {
     private final MovieInfoService movieInfoService;
     @GetMapping("/test")
-    public void test(@RequestParam String date){
-        System.out.println("date............................." + date);
+    public void test(@RequestParam String time) throws ParseException {
+        int r = 120;
+        SimpleDateFormat simpleFormat = new SimpleDateFormat("HH:mm");
+        Date startTime = simpleFormat.parse(time);
+        startTime.setMinutes(startTime.getMinutes() + r);
+        System.out.println("date............................." + startTime);
     }
 
     @GetMapping("/list")
