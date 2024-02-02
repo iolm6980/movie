@@ -19,7 +19,7 @@ public class ReplyServiceImpl implements ReplyService{
 
     @Override
     public PageResultDTO<ReplyDTO, Object[]> getReplyList(Long mno, int page) {
-        Pageable pageable = PageRequest.of(page, 5);
+        Pageable pageable = PageRequest.of(page, 6);
         Page<Object[]> replyPage = replyRepository.getReplyList(mno, pageable);
 
         Function<Object[], ReplyDTO> fn = reply ->

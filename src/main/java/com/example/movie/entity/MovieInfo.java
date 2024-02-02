@@ -17,6 +17,7 @@ public class MovieInfo{
     private String date;
     private String place;
     private String seat;
+    private String startTime;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

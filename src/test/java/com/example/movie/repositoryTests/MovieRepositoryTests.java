@@ -23,7 +23,7 @@ public class MovieRepositoryTests {
         IntStream.rangeClosed(1, 10).forEach(i ->{
             Movie movie = Movie.builder()
                     .name("영화 이름" + i)
-                    .time(i+"분")
+                    .time(i*10)
                     .summary("줄거리"+i)
                     .totalGrade(Long.valueOf(i/2)).build();
             movieRepository.save(movie);

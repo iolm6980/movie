@@ -23,12 +23,10 @@
                             <h3 class="mb-5">상영시간</h3>
                             <h3 class="mb-5">줄거리</h3>
                             <button th:each="movieInfo:${movie}">
+                                <p>[[${movieInfo.startTime}]] ~ [[${movieInfo.endTime}]]</p>
                                 <p>[[${movieInfo.place}]]</p>
-                                <p>[[${movieInfo.time}]]</p>
                                 <p>[[${movieInfo.seat}]]</p>
                             </button>
-                            <button>2관</button>
-                            <button>3관</button>
                         </div>
                     </div>
                 </div>
@@ -36,37 +34,12 @@
             <hr>
 
             <section class="py-5">
-                <div class="card-list d-flex w-100" id="card-grid">
-                    <div class="card-container items">
-                        <div class="card-top">Flex column을 이용한 카드입니다.</div>
-                        <div class="card-bottom">
-                            <div class="card-name">홍길동</div>
-                            <div class="card-date">2022.6.18</div>
-                        </div>
-                    </div>
-                    <div class="card-container items">
-                        <div class="card-top">Flex column을 이용한 카드입니다.</div>
-                        <div class="card-bottom">
-                            <div class="card-name">홍길동</div>
-                            <div class="card-date">2022.6.18</div>
-                        </div>
-                    </div>
-                    <div class="card-container items">
-                        <div class="card-top">Flex column을 이용한 카드입니다.</div>
-                        <div class="card-bottom">
-                            <div class="card-name">홍길동</div>
-                            <div class="card-date">2022.6.18</div>
-                        </div>
-                    </div>
-                    <div class="card-container items">
-                        <div class="card-top">Flex column을 이용한 카드입니다.</div>
-                        <div class="card-bottom">
-                            <div class="card-name">홍길동</div>
-                            <div class="card-date">2022.6.18</div>
-                        </div>
+                <div class="container px-3 px-lg-6 my-5">
+                    <div class="card-list d-flex px-5" id="card-grid">
                     </div>
                 </div>
             </section>
+
         </div>
     </div>
 </div>
@@ -76,6 +49,35 @@
 <!-- Core theme JS-->
 <script th:inline="javascript">
 
+    $(document).ready(function(){
+        loadReply(0);
+    });
+
+    var replyDiv = $('.card-list');
+    function loadReply(selectPage){
+        $.getJSON('/reply/'+ [[${movie[0].mno}]] + '?page=' + selectPage, function(replyList){
+            var str = "";
+            $.each(replyList.dtoList, function(idx, reply){
+                console.log(reply);
+                str += '<div class="card-container items">';
+                str += '<div class="card-top pb-3">' + reply.memberId + '</div>';
+                str += '<div class="card-bottom">';
+                str += '<div class="card-name">' + reply.content + '</div>';
+                str += '</div> </div>';
+            });
+            str += '<div class="w-100 float-end">'
+            str += '<div class="bottom-right fixed bo">';
+            str += '<ul class="pagination h-100 justify-content-center align-items-center" >';
+            $.each(replyList.pageList, function(idx, page){
+                if(replyList.page == page) str += '<li class="page-item active">';
+                else str += '<li th:class="page-item">';
+                str += '<button class="page-link" onclick="loadReply('+ (page-1) +')">' + page + '</button>';
+                str += '</li>';
+            });
+            str += '</ul> </div> </div>';
+            replyDiv.html(str);
+        });
+    }
 </script>
 </body>
 </html>

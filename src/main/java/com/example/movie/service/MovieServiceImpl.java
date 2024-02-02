@@ -14,17 +14,4 @@ import java.util.stream.Collectors;
 public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
 
-    @Override
-    public List<MovieDTO> getMovieList(String date) {
-//        List<MovieDTO> dtoList = movieRepository.findByDate(date).stream().map(movie -> entityToDTO(movie)).collect(Collectors.toList());
-//        return dtoList;
-        return null;
-    }
-
-    @Override
-    public List<MovieDTO> getMovie(String date, String name) {
-//        List<MovieDTO> dtoList = movieRepository.findByDateAndName(date, name).stream().map(movie -> entityToDTO(movie)).collect(Collectors.toList());
-//        return dtoList;
-        return null;
-    }
 }

@@ -19,6 +19,7 @@ public class MovieInfoRepositoryTests {
     public void insertTest(){
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         String today = dateFormat.format(date);
         IntStream.rangeClosed(1, 10).forEach(i ->{
             Movie movie = Movie.builder().mno(Long.valueOf(i)).build();
@@ -27,6 +28,7 @@ public class MovieInfoRepositoryTests {
                     .place( i + "관")
                     .seat("0")
                     .date(today)
+                    .startTime(timeFormat.format(date))
                     .build();
             movieInfoRepository.save(movieInfo);
         });
@@ -43,6 +45,7 @@ public class MovieInfoRepositoryTests {
     @Test
     public void getMovie(){
         Date date = new Date();
+        System.out.println(date);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String today = dateFormat.format(date);
         System.out.println(movieInfoRepository.findByDateAndMovieMno(today, 1L));

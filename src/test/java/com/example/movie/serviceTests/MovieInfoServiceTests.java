@@ -1,5 +1,6 @@
 package com.example.movie.serviceTests;
 
+import com.example.movie.dto.MovieDTO;
 import com.example.movie.repository.MovieInfoRepository;
 import com.example.movie.service.MovieInfoService;
 import com.example.movie.service.MovieService;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.*;
 @SpringBootTest
 public class MovieInfoServiceTests {
     @Autowired
@@ -26,6 +28,7 @@ public class MovieInfoServiceTests {
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String today = dateFormat.format(date);
-        System.out.println(movieInfoService.getMovie(today, 1L));
+        List<MovieDTO> list = movieInfoService.getMovie(today, 1L);
+        System.out.println(list);
     }
 }

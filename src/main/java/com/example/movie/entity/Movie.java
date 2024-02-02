@@ -15,7 +15,7 @@ public class Movie {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mno;
     private String name;
-    private String time;
+    private int time;
     private String summary;
     private Long totalGrade;
 

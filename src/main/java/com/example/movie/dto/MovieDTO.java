@@ -10,8 +10,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class MovieDTO {
     private Long mno;
     private String name;
-    private String time;
+    private int time;
     private String date;
+    private String startTime;
+    private String endTime;
     private String place;
     private String seat;
     private String summary;

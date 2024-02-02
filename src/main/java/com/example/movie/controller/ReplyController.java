@@ -4,6 +4,7 @@ import com.example.movie.dto.PageResultDTO;
 import com.example.movie.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 public class ReplyController {
     private final ReplyService replyService;
 
-    @PostMapping("/{mno}")
-    public ResponseEntity<?> ReplyList(@PathVariable Long mno, @RequestParam int page){
+    @GetMapping(value = "/{mno}" ,produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> ReplyList(@PathVariable Long mno, @RequestParam(defaultValue = "0") int page){
         System.out.println("mno: "+ mno + "page: " + page);
         PageResultDTO result = replyService.getReplyList(mno, page);
         return new ResponseEntity<>(result, HttpStatus.OK);
