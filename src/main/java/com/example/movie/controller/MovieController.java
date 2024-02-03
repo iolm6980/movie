@@ -19,12 +19,7 @@ import java.util.Date;
 public class MovieController {
     private final MovieInfoService movieInfoService;
     @GetMapping("/test")
-    public void test(@RequestParam String time) throws ParseException {
-        int r = 120;
-        SimpleDateFormat simpleFormat = new SimpleDateFormat("HH:mm");
-        Date startTime = simpleFormat.parse(time);
-        startTime.setMinutes(startTime.getMinutes() + r);
-        System.out.println("date............................." + startTime);
+    public void test() {
     }
 
     @GetMapping("/list")

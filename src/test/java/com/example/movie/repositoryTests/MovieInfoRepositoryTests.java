@@ -21,12 +21,13 @@ public class MovieInfoRepositoryTests {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
         String today = dateFormat.format(date);
+        String seat = "0".repeat(72);
         IntStream.rangeClosed(1, 10).forEach(i ->{
             Movie movie = Movie.builder().mno(Long.valueOf(i)).build();
             MovieInfo movieInfo = MovieInfo.builder()
                     .movie(movie)
                     .place( i + "관")
-                    .seat("0")
+                    .seat(seat)
                     .date(today)
                     .startTime(timeFormat.format(date))
                     .build();
@@ -49,5 +50,18 @@ public class MovieInfoRepositoryTests {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String today = dateFormat.format(date);
         System.out.println(movieInfoRepository.findByDateAndMovieMno(today, 1L));
+    }
+
+    @Test
+    public void test(){
+        String seat = "0".repeat(72);
+        char s = 'A';
+        for(int i=0; i<seat.length(); i++){
+            if(i % 12 == 0 && i != 0) {
+                System.out.println();
+                s += 1;
+            }
+            System.out.print(String.valueOf(s) + (i%12+1) + " ");
+        }
     }
 }
