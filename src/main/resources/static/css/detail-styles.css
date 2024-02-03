@@ -2334,6 +2334,7 @@ textarea.form-control-lg {
   position: absolute;
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
+  border-color: black;
 }
 .btn-check[disabled] + .btn, .btn-check:disabled + .btn {
   pointer-events: none;
@@ -5375,7 +5376,8 @@ textarea.form-control-lg {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 700px;
+    overflow:auto;
+    max-width: 670px;
     margin: 1.75rem auto;
   }
 

@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,5 +42,17 @@ public class MovieInfoServiceImpl implements MovieInfoService{
                     }
                 }).collect(Collectors.toList());
         return dtoList;
+    }
+
+    @Override
+    public void seatRegister(List<Integer> indexList, Long mino) {
+        Optional<MovieInfo> movieInfo = movieInfoRepository.findById(mino);
+        if(movieInfo.isPresent()) {
+            MovieInfo result = movieInfo.get();
+            StringBuilder sb = new StringBuilder(result.getSeat());
+            indexList.forEach(i -> sb.setCharAt(i-1, '1'));
+            result.changeSeat(String.valueOf(sb));
+            movieInfoRepository.save(result);
+        }
     }
 }

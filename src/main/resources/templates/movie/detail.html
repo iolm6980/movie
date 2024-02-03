@@ -48,13 +48,13 @@
 <div class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <div class="modal-header text-center">
+            <div class="modal-header">
                 <h1 class="mx-sm-auto">스크린</h1>
             </div>
-            <div class="modal-body">
-
+            <div class="modal-body py-sm-5">
             </div>
             <div class="modal-footer">
+                <button class="submit-seat">예매하기</button>
             </div>
         </div>
     </div>
@@ -101,21 +101,33 @@
     function showSeat(movie){
         var str = "";
         var word = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-        console.log("modal on");
+        console.log(movie);
+        str += '<form action="/movie/seat" method="post" class="seat-form">';
         for(var i=0; i<movie.seat.length/12; i++){
-
             str += '<div>';
             for(var j=1; j<=12; j++){
-                str += '<input type="checkbox" class="btn-check" name="' + (i*12+j) + '" id="' + (i*12+j) + '" autocomplete="off">';
-                str += '<label class="btn" for="' + (i*12+j) + '" style="width:50px; height:40px; border:1px solid; margin:1.5px;">' + word[i] + "" + j + '</label>';
+                if(movie.seat.charAt(i*12+j-1) == '1') {
+                    str += '<input type="checkbox" class="btn-check" name="index" id="' + (i*12+j) + '" value="' + (i*12+j) + '" autocomplete="off" disabled>';
+                    str += '<label class="btn" for="' + (i*12+j) + '" style="width:50px; height:40px; border:1px solid; margin:1.5px;">X</label>';
+                }
+                else{
+                    str += '<input type="checkbox" class="btn-check" name="index" id="' + (i*12+j) + '" value="' + (i*12+j) + '" autocomplete="off">';
+                    str += '<label class="btn" for="' + (i*12+j) + '" style="width:50px; height:40px; border:1px solid; margin:1.5px;">' + word[i] + "" + j + '</label>';
+                 }
+
             }
             str += '</div>';
         }
+        str += '<input type="hidden" name="mino" value="' + movie.mino + '">';
+        str += '</form>';
         $(".modal-body").html(str);
         seatModal.show('show');
-
-
     }
+
+    $(".submit-seat").click(function() {
+        console.log("click");
+        $(".seat-form").submit();
+    });
 
 </script>
 </body>

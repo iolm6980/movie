@@ -10,6 +10,7 @@ import java.util.*;
 public interface MovieInfoService {
     List<MovieDTO> getMovieList(String date);
     List<MovieDTO> getMovie(String date, Long mno);
+    void seatRegister(List<Integer> indexList, Long mino);
 
     default MovieDTO entityToDTO(MovieInfo movieInfo) throws ParseException {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -17,6 +18,7 @@ public interface MovieInfoService {
         endTime.setMinutes(endTime.getMinutes() + movieInfo.getMovie().getTime());
         MovieDTO movieDTO = MovieDTO.builder()
                 .mno(movieInfo.getMovie().getMno())
+                .mino(movieInfo.getMino())
                 .name(movieInfo.getMovie().getName())
                 .date(movieInfo.getDate())
                 .place(movieInfo.getPlace())

@@ -19,7 +19,10 @@ public class MovieInfo{
     private String seat;
     private String startTime;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
+
+    public void changeSeat(String seat){
+        this.seat = seat;
+    }
 }

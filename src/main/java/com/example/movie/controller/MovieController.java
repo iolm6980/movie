@@ -6,12 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/movie")
@@ -20,6 +22,7 @@ public class MovieController {
     private final MovieInfoService movieInfoService;
     @GetMapping("/test")
     public void test() {
+
     }
 
     @GetMapping("/list")
@@ -36,5 +39,11 @@ public class MovieController {
     public void detail(String date, Long mno, Model model){
         System.out.println("date: " + date + " name: " + mno);
         model.addAttribute("movie", movieInfoService.getMovie(date, mno));
+    }
+
+    @PostMapping("/seat")
+    public String seatRegister(@RequestParam List<Integer> index, Long mino){
+        movieInfoService.seatRegister(index, mino);
+        return "redirect:/movie/list";
     }
 }

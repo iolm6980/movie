@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Builder
 public class MovieDTO {
     private Long mno;
+    private Long mino;
     private String name;
     private int time;
     private String date;
