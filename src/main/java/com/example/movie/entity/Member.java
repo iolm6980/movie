@@ -14,5 +14,4 @@ public class Member {
     @Id
     private String memberId;
     private String password;
-    private String ticket;
 }
