@@ -27,4 +27,9 @@ public class ReplyServiceImpl implements ReplyService{
 
         return new PageResultDTO<>(replyPage, fn);
     }
+
+    @Override
+    public void ReplyRegister(ReplyDTO replyDTO) {
+        replyRepository.save(DtoToEntity(replyDTO));
+    }
 }

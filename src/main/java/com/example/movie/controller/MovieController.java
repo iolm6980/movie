@@ -1,5 +1,6 @@
 package com.example.movie.controller;
 
+import com.example.movie.dto.MovieDTO;
 import com.example.movie.service.MovieInfoService;
 import com.example.movie.service.MovieService;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,14 @@ public class MovieController {
     @GetMapping("/detail")
     public void detail(String date, Long mno, Model model){
         System.out.println("date: " + date + " name: " + mno);
-        model.addAttribute("movie", movieInfoService.getMovie(date, mno));
+        List<MovieDTO> movieDTOList = movieInfoService.getMovie(date, mno);
+        movieDTOList.forEach(movie ->{
+            int cnt = 0;
+            for(int i=0; i<movie.getSeat().length(); i++)
+                if(movie.getSeat().charAt(i) == '0') cnt++;
+            movie.setSeatCnt(cnt);
+        });
+        model.addAttribute("movie", movieDTOList);
     }
 
     @PostMapping("/seat")

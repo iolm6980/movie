@@ -20,5 +20,6 @@ public class MovieDTO {
     private String summary;
     private String path;
     private String imgName;
+    private int seatCnt;
     private Long totalGrade;
 }

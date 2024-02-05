@@ -23,10 +23,10 @@
                             <h3 class="mb-5">상영시간</h3>
                             <h3 class="mb-5">줄거리</h3>
                             <div th:each="movieInfo:${movie}" >
-                                <button th:onclick="showSeat([[${movieInfo}]])">
+                                <button class="btn btn-outline-secondary" th:onclick="showSeat([[${movieInfo}]])">
                                     <p>[[${movieInfo.startTime}]] ~ [[${movieInfo.endTime}]]</p>
                                     <p>[[${movieInfo.place}]]</p>
-                                    <p>[[${movieInfo.seat.length()}]]</p>
+                                    <p>[[${movieInfo.seatCnt}]]석</p>
                                 </button>
                             </div>
                         </div>
@@ -45,19 +45,40 @@
         </div>
     </div>
 </div>
-<div class="modal" tabindex="-1" role="dialog">
+<div class="modal seat-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="mx-sm-auto">스크린</h1>
             </div>
-            <div class="modal-body py-sm-5">
+            <div class="modal-body seat-modal-body py-sm-5">
             </div>
             <div class="modal-footer ">
                 <h4 >결제금액: </h4>
                 <h5 class="show-money">0</h5>
                 <h5 > 원</h5>
-                <button class="submit-seat ms-sm-auto btn btn-primary">예매하기</button>
+                <button class="submit-seat ms-sm-auto btn btn-outline-dark">예매하기</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal reply-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="mx-sm-auto">감상평 등록</h2>
+            </div>
+            <div class="modal-body reply-modal-body py-sm-5">
+                <form action="/reply/register" method="post" class="reply-form">
+                    <input type="text" name="content">
+                    <input type="text" name="grade">
+                    <input type="hidden" name="movie" th:value="${movie[0].mno}">
+                    <input type="hidden" name="memberId" th:value="test1">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="ms-sm-auto btn btn-outline-dark" onclick="replyRegister()">작성하기</button>
             </div>
         </div>
     </div>
@@ -67,12 +88,14 @@
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 <!-- Core theme JS-->
 <script th:inline="javascript">
-    var seatModal = $('.modal');
+    var seatModal = $('.seat-modal');
+    var replyModal = $('.reply-modal');
     var movie;
     var word = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
     $(document).ready(function(){
         seatModal.hide();
+        replyModal.hide();
         loadReply(0);
     });
 
@@ -91,12 +114,21 @@
             str += '<div class="w-100 float-end">'
             str += '<div class="bottom-right fixed bo">';
             str += '<ul class="pagination h-100 justify-content-center align-items-center" >';
+            if(replyList.prev == true) {
+                str += '<li class="page-item">';
+                str += '<a class="page-link" onclick="loadReply(' + (replyList.start-2) + ')" tabindex="-1">Previous</a></li>';
+            }
             $.each(replyList.pageList, function(idx, page){
                 if(replyList.page == page) str += '<li class="page-item active">';
                 else str += '<li th:class="page-item">';
                 str += '<button class="page-link" onclick="loadReply('+ (page-1) +')">' + page + '</button>';
                 str += '</li>';
             });
+            if(replyList.next == true) {
+                str += '<li class="page-item">';
+                str += '<a class="page-link" onclick="loadReply(' + (replyList.end) + ')" tabindex="-1">Next</a></li>';
+            }
+            str += '<button class="replyBtn ms-sm-1 btn btn-outline-dark" onclick="showReplyModal()">감상평 작성</button>'
             str += '</ul> </div> </div>';
             replyDiv.html(str);
         });
@@ -127,7 +159,7 @@
         }
         str += '<input type="hidden" name="mino" value="' + selectMovie.mino + '">';
         str += '</form>';
-        $(".modal-body").html(str);
+        $(".seat-modal-body").html(str);
         seatModal.show('show');
     }
 
@@ -179,6 +211,14 @@
         var cnt = $('input:checkbox[name=index]:checked').length;
         $('.show-money').text(cnt * 10000);
     });
+
+    function showReplyModal(){
+        replyModal.show('show');
+    }
+
+    function replyRegister(){
+        $(".reply-form").submit();
+    }
 
 </script>
 </body>

@@ -20,5 +20,6 @@ public class ReplyDTO {
     private Long grade;
     private Movie movie;
     private Member member;
+    private Long mno;
     private String memberId;
 }

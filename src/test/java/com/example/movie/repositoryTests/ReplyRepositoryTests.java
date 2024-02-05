@@ -25,9 +25,9 @@ public class ReplyRepositoryTests {
 
     @Test
     public void ReplyInsertTest(){
-        IntStream.rangeClosed(1, 5).forEach(i ->{
+        IntStream.rangeClosed(1, 50).forEach(i ->{
             Movie movie = Movie.builder().mno(1L).build();
-            Member member = Member.builder().memberId("test"+i).build();
+            Member member = Member.builder().memberId("test1").build();
             Reply reply = Reply.builder()
                     .movie(movie)
                     .grade((long) (i/2))
@@ -40,7 +40,7 @@ public class ReplyRepositoryTests {
 
 
     @Test
-    public void getReplyList(){
+    public void getReplyList(ReplyDTO replyDTO){
 
     }
 
