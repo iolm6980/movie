@@ -22,8 +22,8 @@
                             <h1 class="display-6 fw-bolder mb-5">영화 이름</h1>
                             <h3 class="mb-5">상영시간</h3>
                             <h3 class="mb-5">줄거리</h3>
-                            <div th:each="movieInfo:${movieInfoList}" >
-                                <button class="btn btn-outline-secondary" th:onclick="showSeat([[${movieInfo}]])">
+                            <div class="d-flex">
+                                <button class="btn btn-outline-secondary" th:each="movieInfo:${movieInfoList}" th:onclick="showSeat([[${movieInfo}]])">
                                     <p>[[${movieInfo.startTime}]] ~ [[${movieInfo.endTime}]]</p>
                                     <p>[[${movieInfo.place}]]</p>
                                     <p>[[${movieInfo.seatCnt}]]석</p>
@@ -50,6 +50,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h1 class="mx-sm-auto">스크린</h1>
+                <button class="btn btn-outline-secondary" onclick="hideModal()">X</button>
             </div>
             <div class="modal-body seat-modal-body py-sm-5">
             </div>
@@ -64,23 +65,23 @@
 </div>
 
 <div class="modal reply-modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" >
         <div class="modal-content">
             <div class="modal-header">
                 <h2 class="mx-sm-auto">감상평 등록</h2>
+                <button class="btn btn-outline-secondary" onclick="hideModal()">X</button>
             </div>
             <form action="/reply/register" method="post" class="reply-form">
             <div class="modal-body reply-modal-body py-sm-5">
-                    <input type="text" name="content">
-                    <input type="text" name="grade">
-                    <input type="hidden" name="movieDTO" th:value="${movieInfoList[0].movieDTO.mno}">
+                    <input type="text" name="content" style="width:100%; height:200px;">
+                    <input type="hidden" name="movieDTO" th:value="${movieInfoList[0].movieDTO}">
                     <input type="hidden" name="memberId" th:value="test1">
             </div>
             <div class="modal-footer">
                 <span class="star">
                   ★★★★★
                   <span>★★★★★</span>
-                  <input type="range" oninput="drawStar(this)" name="grade" value="1" step="1" min="0" max="10">
+                  <input type="range" oninput="drawStar(this)" name="grade" value="1" step="1" min="0" max="100">
                 </span>
                 <button class="ms-sm-auto btn btn-outline-dark" onclick="replyRegister()">작성하기</button>
             </div>
@@ -226,7 +227,12 @@
     }
 
    const drawStar = (target) => {
-      document.querySelector(`.star span`).style.width = `${target.value * 10}%`;
+      document.querySelector(`.star span`).style.width = `${target.value}%`;
+   }
+
+   function hideModal(){
+        replyModal.hide();
+        seatModal.hide();
    }
 </script>
 </body>

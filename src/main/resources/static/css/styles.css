@@ -10,6 +10,30 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+ .star {
+     position: relative;
+     font-size: 2rem;
+     color: #ddd;
+   }
+
+   .star input {
+     width: 100%;
+     height: 100%;
+     position: absolute;
+     left: 0;
+     opacity: 0;
+     cursor: pointer;
+   }
+
+   .star span {
+     width: 0;
+     position: absolute;
+     left: 0;
+     color: red;
+     overflow: hidden;
+     pointer-events: none;
+   }
  .hr-line{
     margin-top: 70px;
     margin-bottom: 30px;
