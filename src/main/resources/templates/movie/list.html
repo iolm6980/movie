@@ -20,13 +20,13 @@
         <div class="container-fluid">
             <section class="py-5">
                 <div class="container">
-                    <div class="movie-list ps-sm-5 mb-xl-5" th:each="movie: ${movieList}">
-                        <a th:href="@{/movie/detail(date=${movie.date}, mno=${movie.mno})}">
+                    <div class="movie-list ps-sm-5 mb-xl-5" th:each="movie: ${movieInfoList}">
+                        <a th:href="@{/movie/detail(date=${movie.date}, mno=${movie.movieDTO.mno})}">
                             <div class="d-flex">
                                 <img src="/img/testImg.jpg" style="width:25%; padding: 10px">
                                 <div class="movie-info p-4 w-100">
-                                    <h3>[[${movie.name}]]</h3>
-                                    <h5>[[${movie.totalGrade}]]</h5>
+                                    <h3>[[${movie.movieDTO.name}]]</h3>
+                                    <h5>[[${movie.movieDTO.totalGrade}]]</h5>
                                     <button class="move-detail">예매하기</button>
                                 </div>
                             </div>

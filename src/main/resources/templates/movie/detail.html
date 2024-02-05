@@ -22,7 +22,7 @@
                             <h1 class="display-6 fw-bolder mb-5">영화 이름</h1>
                             <h3 class="mb-5">상영시간</h3>
                             <h3 class="mb-5">줄거리</h3>
-                            <div th:each="movieInfo:${movie}" >
+                            <div th:each="movieInfo:${movieInfoList}" >
                                 <button class="btn btn-outline-secondary" th:onclick="showSeat([[${movieInfo}]])">
                                     <p>[[${movieInfo.startTime}]] ~ [[${movieInfo.endTime}]]</p>
                                     <p>[[${movieInfo.place}]]</p>
@@ -69,17 +69,22 @@
             <div class="modal-header">
                 <h2 class="mx-sm-auto">감상평 등록</h2>
             </div>
+            <form action="/reply/register" method="post" class="reply-form">
             <div class="modal-body reply-modal-body py-sm-5">
-                <form action="/reply/register" method="post" class="reply-form">
                     <input type="text" name="content">
                     <input type="text" name="grade">
-                    <input type="hidden" name="movie" th:value="${movie[0].mno}">
+                    <input type="hidden" name="movieDTO" th:value="${movieInfoList[0].movieDTO.mno}">
                     <input type="hidden" name="memberId" th:value="test1">
-                </form>
             </div>
             <div class="modal-footer">
+                <span class="star">
+                  ★★★★★
+                  <span>★★★★★</span>
+                  <input type="range" oninput="drawStar(this)" name="grade" value="1" step="1" min="0" max="10">
+                </span>
                 <button class="ms-sm-auto btn btn-outline-dark" onclick="replyRegister()">작성하기</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -90,7 +95,7 @@
 <script th:inline="javascript">
     var seatModal = $('.seat-modal');
     var replyModal = $('.reply-modal');
-    var movie;
+    var movieInfo;
     var word = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
 
     $(document).ready(function(){
@@ -101,7 +106,7 @@
 
     var replyDiv = $('.card-list');
     function loadReply(selectPage){
-        $.getJSON('/reply/'+ [[${movie[0].mno}]] + '?page=' + selectPage, function(replyList){
+        $.getJSON('/reply/'+ [[${movieInfoList[0].movieDTO.mno}]] + '?page=' + selectPage, function(replyList){
             var str = "";
             $.each(replyList.dtoList, function(idx, reply){
                 console.log(reply);
@@ -137,15 +142,15 @@
         console.log(click);
     }
 
-    function showSeat(selectMovie){
+    function showSeat(selectMovieInfo){
         var str = "";
-        movie = selectMovie;
-        console.log(movie);
+        movieInfo = selectMovieInfo;
+        console.log(movieInfo);
         str += '<form action="/movie/seat" method="post" class="seat-form">';
-        for(var i=0; i<selectMovie.seat.length/12; i++){
+        for(var i=0; i<selectMovieInfo.seat.length/12; i++){
             str += '<div class="index-list">';
             for(var j=1; j<=12; j++){
-                if(selectMovie.seat.charAt(i*12+j-1) == '1') {
+                if(selectMovieInfo.seat.charAt(i*12+j-1) == '1') {
                     str += '<input type="checkbox" class="btn-check" name="index" id="' + (i*12+j) + '" value="' + (i*12+j) + '" autocomplete="off" disabled>';
                     str += '<label class="btn" for="' + (i*12+j) + '" style="width:50px; height:40px; border:1px solid; margin:1.5px;">X</label>';
                 }
@@ -157,7 +162,7 @@
             }
             str += '</div>';
         }
-        str += '<input type="hidden" name="mino" value="' + selectMovie.mino + '">';
+        str += '<input type="hidden" name="mino" value="' + selectMovieInfo.mino + '">';
         str += '</form>';
         $(".seat-modal-body").html(str);
         seatModal.show('show');
@@ -179,7 +184,7 @@
                 pg: 'tosspay',
                 pay_method: "card",
                 merchant_uid : uuid,
-                name : movie.name,
+                name : movieInfo.movieDTO.name,
                 amount : 10000 * cnt,
                 memberId: 'test1',
             }, function (rsp) {
@@ -191,8 +196,8 @@
                         pid: uuid,
                         reserveSeat: seat,
                         totalPrice: 10000 * cnt,
-                        member : {memberId: 'test1'},
-                        movieInfo: movie
+                        memberDTO : {memberId: 'test1'},
+                        movieInfoDTO: movieInfo
                     }),
                     contentType: 'application/json; charset=utf-8',
                     success: function(){
@@ -220,6 +225,9 @@
         $(".reply-form").submit();
     }
 
+   const drawStar = (target) => {
+      document.querySelector(`.star span`).style.width = `${target.value * 10}%`;
+   }
 </script>
 </body>
 </html>

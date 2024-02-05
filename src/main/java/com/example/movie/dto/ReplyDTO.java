@@ -18,8 +18,8 @@ public class ReplyDTO {
     private Long rno;
     private String content;
     private Long grade;
-    private Movie movie;
-    private Member member;
+    private MovieDTO movieDTO;
+    private MemberDTO memberDTO;
     private Long mno;
     private String memberId;
 }

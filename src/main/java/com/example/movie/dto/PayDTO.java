@@ -11,6 +11,6 @@ public class PayDTO {
     private String pid;
     private String reserveSeat;
     private int totalPrice;
-    private Member member;
-    private MovieInfo movieInfo;
+    private MemberDTO memberDTO;
+    private MovieInfoDTO movieInfoDTO;
 }
