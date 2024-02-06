@@ -25,7 +25,7 @@ public class ReplyController {
     @PostMapping("/register")
     public void replyRegister(@ModelAttribute ReplyDTO replyDTO){
         System.out.println("reply........" + replyDTO);
-        replyService.ReplyRegister(replyDTO);
+        //replyService.ReplyRegister(replyDTO);
     }
 
 }

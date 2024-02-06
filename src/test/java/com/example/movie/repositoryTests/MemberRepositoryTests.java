@@ -7,6 +7,7 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,11 +19,22 @@ public class MemberRepositoryTests {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @Test
     public void MemberInsertTest(){
+        Member admin = Member.builder()
+                .memberId("admin")
+                .password(passwordEncoder.encode("1111"))
+                .role("ADMIN")
+                .build();
+        memberRepository.save(admin);
+
         IntStream.rangeClosed(1, 10).forEach(i ->{
             Member member = Member.builder()
                     .memberId("test" +i)
+                    .password(passwordEncoder.encode("1111"))
+                    .role("USER")
                     .build();
             memberRepository.save(member);
         });
