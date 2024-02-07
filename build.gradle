@@ -36,6 +36,17 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	implementation group: 'org.json', name: 'json', version: '20090211'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	// https://mvnrepository.com/artifact/javax.xml.bind/jaxb-api
+	implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
+
+// https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-core
+	implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0.1'
+
+// https://mvnrepository.com/artifact/com.sun.xml.bind/jaxb-impl
+	implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.1'
 }
 
 tasks.named('bootBuildImage') {

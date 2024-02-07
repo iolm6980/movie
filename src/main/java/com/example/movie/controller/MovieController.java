@@ -2,9 +2,12 @@ package com.example.movie.controller;
 
 import com.example.movie.dto.MovieDTO;
 import com.example.movie.dto.MovieInfoDTO;
+import com.example.movie.security.dto.AuthMemberDTO;
 import com.example.movie.service.MovieInfoService;
 import com.example.movie.service.MovieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +31,7 @@ public class MovieController {
     }
 
     @GetMapping("/list")
-    public void list(@RequestParam(required = false) String date, Model model){
+    public void list(@RequestParam(required = false) String date, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO){
         if(date == null) {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date today = new Date();
@@ -38,7 +41,7 @@ public class MovieController {
     }
 
     @GetMapping("/detail")
-    public void detail(String date, Long mno, Model model){
+    public void detail(String date, Long mno, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO){
         System.out.println("date: " + date + " name: " + mno);
         List<MovieInfoDTO> movieDTOList = movieInfoService.getMovie(date, mno);
         movieDTOList.forEach(movieInfoDTO ->{

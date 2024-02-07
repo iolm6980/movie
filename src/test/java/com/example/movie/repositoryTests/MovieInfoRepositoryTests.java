@@ -3,9 +3,11 @@ package com.example.movie.repositoryTests;
 import com.example.movie.entity.Movie;
 import com.example.movie.entity.MovieInfo;
 import com.example.movie.repository.MovieInfoRepository;
+import com.example.movie.security.dto.AuthMemberDTO;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,6 +17,7 @@ import java.util.stream.IntStream;
 public class MovieInfoRepositoryTests {
     @Autowired
     private MovieInfoRepository movieInfoRepository;
+
     @Test
     public void insertTest(){
         Date date = new Date();
@@ -54,14 +57,7 @@ public class MovieInfoRepositoryTests {
 
     @Test
     public void test(){
-        String seat = "0".repeat(72);
-        char s = 'A';
-        for(int i=0; i<seat.length(); i++){
-            if(i % 12 == 0 && i != 0) {
-                System.out.println();
-                s += 1;
-            }
-            System.out.print(String.valueOf(s) + (i%12+1) + " ");
-        }
+
     }
+
 }
