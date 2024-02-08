@@ -53,27 +53,28 @@ public class SecurityConfig {
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
         http.authenticationManager(authenticationManager);
 
-
-        http.authorizeHttpRequests(requests ->
-                        requests.requestMatchers("/movie/list").permitAll()
-                                .requestMatchers("/movie/**").hasRole("USER")
-                                .requestMatchers("/reply/**").hasRole("USER")
-                                .requestMatchers("/pay/**").hasRole("USER")
-                                .requestMatchers("/logout").hasRole("USER")
-                                .requestMatchers("/member/**").permitAll()
-                                .requestMatchers("/login").permitAll()
+        http.authorizeHttpRequests(requests -> requests.requestMatchers("/**").permitAll()
+//                        requests.requestMatchers("/movie/list").permitAll()
+//                                .requestMatchers("/movie/**").hasRole("USER")
+//                                .requestMatchers("/movie/movieRegister").hasRole("ADMIN")
+//                                .requestMatchers("/reply/**").hasRole("USER")
+//                                .requestMatchers("/pay/**").hasRole("USER")
+//                                .requestMatchers("/logout").hasRole("USER")
+//                                .requestMatchers("/member/**").permitAll()
+//                                .requestMatchers("/login").permitAll()
                                 .requestMatchers("/css/**","/js/**", "/img/**").permitAll()
                                 )
                 .csrf((csrf) -> csrf.disable())
-                //.addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class)
-                //.addFilterBefore(apiLoginFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
                 .formLogin(login -> login.loginPage("/member/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/movie/list")
                         //.successHandler(loginSuccessHandler())
                         .failureHandler(movieFailHandler).permitAll())
-                .logout(Customizer.withDefaults());
+                .logout(Customizer.withDefaults())
+                .addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
+                //.addFilterBefore(apiLoginFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
+                //.addFilterBefore(new JwtTokenFilter(movieUserDetailService, secretKey), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

@@ -23,7 +23,7 @@
                     <div class="movie-list ps-sm-5 mb-xl-5" th:each="movieInfo: ${movieInfoList}">
                         <a th:href="@{/movie/detail(date=${movieInfo.date}, mno=${movieInfo.movieDTO.mno})}">
                             <div class="d-flex">
-                                <img src="/img/testImg.jpg" style="width:25%; padding: 10px">
+                                <img th:src="|/upload/display?fileName=${movieInfo.movieDTO.getImageURL()}|" style="width:25%; padding: 10px">
                                 <div class="movie-info p-4 w-100">
                                     <h3>[[${movieInfo.movieDTO.name}]]</h3>
                                     <span class="star">
@@ -45,7 +45,7 @@
 <!-- Core theme JS-->
 
 </body>
-<script th:inline="javascript">
+<script th:inline="javascript">;
 
     var date = new Date();
     var today = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
@@ -55,7 +55,5 @@
         var link = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
         $("#movie-date").append("<a class='list-group-item list-group-item-action list-group-item-light p-3' href='/movie/list?date=" + link + "'>" + day + "</a>");
     }
-
-
 </script>
 </html>

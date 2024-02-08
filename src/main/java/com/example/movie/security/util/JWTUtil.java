@@ -5,12 +5,14 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.DefaultClaims;
 import io.jsonwebtoken.impl.DefaultJws;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Component;
 
 import java.time.ZonedDateTime;
 import java.util.Date;
 
 
 @Log4j2
+@Component
 public class JWTUtil {
     private String secretKey = "zerock12345678";
 

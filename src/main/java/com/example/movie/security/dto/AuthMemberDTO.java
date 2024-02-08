@@ -1,5 +1,6 @@
 package com.example.movie.security.dto;
 
+import com.example.movie.security.util.JWTUtil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 

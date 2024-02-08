@@ -3,6 +3,9 @@ package com.example.movie.dto;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,4 +18,8 @@ public class MovieDTO {
     private Long totalGrade;
     private String path;
     private String imgName;
+
+    public String getImageURL() throws UnsupportedEncodingException {
+        return URLEncoder.encode(path, "UTF-8");
+    }
 }

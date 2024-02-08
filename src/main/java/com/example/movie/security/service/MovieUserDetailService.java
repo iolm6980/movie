@@ -3,6 +3,7 @@ package com.example.movie.security.service;
 import com.example.movie.entity.Member;
 import com.example.movie.repository.MemberRepository;
 import com.example.movie.security.dto.AuthMemberDTO;
+import com.example.movie.security.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;

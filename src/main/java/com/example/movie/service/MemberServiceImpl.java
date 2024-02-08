@@ -29,4 +29,11 @@ public class MemberServiceImpl implements MemberService{
         MemberDTO member = entityToDTO(optionalMember.get());
         return member;
     }
+
+    @Override
+    public boolean checkMember(MemberDTO memberDTO) {
+        Optional<Member> optionalMember = memberRepository.findByMemberId(memberDTO.getMemberId());
+        if(optionalMember.isPresent() && passwordEncoder.matches(memberDTO.getPassword(), optionalMember.get().getPassword())) return true;
+        return false;
+    }
 }

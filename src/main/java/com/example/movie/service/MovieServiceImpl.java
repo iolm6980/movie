@@ -14,4 +14,8 @@ import java.util.stream.Collectors;
 public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
 
+    @Override
+    public void movieRegister(MovieDTO movieDTO) {
+        movieRepository.save(entityToDTO(movieDTO));
+    }
 }

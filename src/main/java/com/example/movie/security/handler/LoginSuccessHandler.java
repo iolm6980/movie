@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 @Component
-public class LoginSuccessHandler implements AuthenticationSuccessHandler {
+public class LoginSuccessHandler implements AuthenticationSuccessHandler{
     private JWTUtil jwtUtil;
     public LoginSuccessHandler(JWTUtil jwtUtil){
         this.jwtUtil = jwtUtil;
@@ -25,11 +25,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         try{
             token = jwtUtil.generateToken(memberId);
             response.setContentType("text/plain");
-            response.getOutputStream().write(token.getBytes());
+            response.setHeader("authentication", token);
             System.out.println(token);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        response.sendRedirect("/movie/list");
+        //response.sendRedirect("/member/login");
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public interface MemberService {
     boolean memberRegister(MemberDTO memberDTO);
     MemberDTO getMember(String memberId);
+    boolean checkMember(MemberDTO memberDTO);
 
     default Member DtoToEntity(MemberDTO memberDTO, PasswordEncoder passwordEncoder){
         Member member = Member.builder()

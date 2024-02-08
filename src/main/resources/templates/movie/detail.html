@@ -16,7 +16,7 @@
                 <div class="container px-3 px-lg-5 my-5">
                     <div class="row gx-4 gx-lg-5" id="parent">
                         <div class="col-md-4 ms-auto">
-                            <img class="card-img-top mb-5 mb-md-0 mainImg" src="/img/testImg.jpg"/>
+                            <img class="card-img-top mb-5 mb-md-0 mainImg" th:src="|/upload/display?fileName=${movieInfoList[0].movieDTO.getImageURL()}|"/>
                         </div>
                         <div class="col-md-5" id="product-information">
                             <h1 class="display-6 fw-bolder mb-5">영화 이름</h1>

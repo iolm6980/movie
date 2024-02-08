@@ -24,8 +24,11 @@ public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
         System.out.println("apiLoginFilter.......................");
 
-        String memberId = request.getParameter("memberId");
+        String memberId = request.getParameter("username");
         String password = request.getParameter("password");
+
+        System.out.println("memberId:" + memberId + " password: " + password);
+
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(memberId, password);
         return getAuthenticationManager().authenticate(authToken);
     }
@@ -43,6 +46,7 @@ public class ApiLoginFilter extends AbstractAuthenticationProcessingFilter {
         try{
             token = jwtUtil.generateToken(memberId);
             response.setContentType("text/plain");
+            response.setHeader("authentication", token);
             response.getOutputStream().write(token.getBytes());
             System.out.println(token);
         } catch (Exception e) {
