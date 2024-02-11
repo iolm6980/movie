@@ -2,6 +2,7 @@ package com.example.movie.controller;
 
 import com.example.movie.dto.MovieDTO;
 import com.example.movie.dto.MovieInfoDTO;
+import com.example.movie.dto.MovieInfoRequest;
 import com.example.movie.security.dto.AuthMemberDTO;
 import com.example.movie.security.util.JWTUtil;
 import com.example.movie.service.MovieInfoService;
@@ -11,6 +12,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -82,7 +85,6 @@ public class MovieController {
 
     @PostMapping("/movieRegister")
     public void postMovieRegister(@RequestParam MultipartFile file, MovieDTO movieDTO) throws IOException {
-
         String originalName = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();
         String saveName = uploadPath + File.separator + uuid + "_" + originalName;
@@ -94,6 +96,19 @@ public class MovieController {
         movieDTO.setPath(savePath.toString());
         System.out.println("movieRegister.........." + movieDTO);
         movieService.movieRegister(movieDTO);
+    }
+
+    @GetMapping("/infoRegister")
+    public void getInfoRegister(Model model){
+        List<MovieDTO> movieDTOList = movieService.getMovieList();
+        List<MovieInfoDTO> movieInfoDTOList = movieInfoService.getMovieList("2024-02-08");
+        model.addAttribute("movieDTOList", movieDTOList);
+        model.addAttribute("movieInfoDTOList", movieInfoDTOList);
+    }
+    @ResponseBody
+    @PostMapping("/infoRegister")
+    public void postInfoRegister(@RequestBody List<MovieInfoDTO> movieInfoDTOList){
+        System.out.println("infoRegister............" + movieInfoDTOList);
 
     }
 }

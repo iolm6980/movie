@@ -16,6 +16,12 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public void movieRegister(MovieDTO movieDTO) {
-        movieRepository.save(entityToDTO(movieDTO));
+        movieRepository.save(dtoToEntity(movieDTO));
+    }
+
+    @Override
+    public List<MovieDTO> getMovieList() {
+        List<MovieDTO> list = movieRepository.findAll().stream().map(movie -> entityToDTO(movie)).collect(Collectors.toList());
+        return list;
     }
 }

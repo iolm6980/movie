@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:replace="~{layout/layout :: head}"></div>
+</head>
+<body>
+<div class="d-flex" id="wrapper">
+    <div id="page-content-wrapper">
+        <div th:replace="~{layout/layout :: top}"></div>
+        <button class="movie-add">추가 버튼</button>
+        <div class="d-flex justify-content-center">
+            <form class="register-form" action="/movie/infoRegister" method="post">
+                <div class="w-100 m-3">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th scope="col">영화 선택</th>
+                            <th scope="col">상영 날짜</th>
+                            <th scope="col">상영 장소</th>
+                            <th scope="col">시작 시간</th>
+                        </tr>
+                        </thead>
+                        <tbody class="inputAddArea">
+                        <tr class="inputValue">
+                            <td><select class="form-select" aria-label="Default select example" name="movieDTO.mno">
+                                <option th:each="movieDTO :${movieDTOList}" th:value="${movieDTO.mno}">[[${movieDTO.name}]]</option>
+                            </select></td>
+                            <td><input type="date" class="" name="date" required></td>
+                            <td><input type="text" class="place" name="place" required></td>
+                            <td><input type="time" class="" name="startTime" required></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div align="right">
+                    <button class="btn btn-primary float-right register-btn" onclick="infoRegister()">등록하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script th:inline="javascript">
+    $(".movie-add").click(function(){
+        var str = "";
+        str += "<tr class='inputValue'>"
+        str += '<td><select class="form-select" aria-label="Default select example" name="movieDTO.mno">';
+        [# th:each="movieDTO : ${movieDTOList}"]
+            str += "<option value='" + [[${movieDTO.mno}]] + "'>" + [[${movieDTO.name}]] + "</option>";
+        [/]
+        str += '</select></td>';
+        str += '<td><input type="date" class="" name="date" required></td>';
+        str += '<td><input type="text" class="" name="place" required></td>';
+        str += '<td><input type="time" class="" name="startTime" required></td>';
+        str += '</tr>';
+
+        $(".inputAddArea").prepend(str);
+    });
+
+
+
+    function infoRegister(){
+        var list = [];
+        $('.inputValue').each(function(index,item){
+            var movie = new Object();
+            movie.date = $(this).find('input[name=date]').val();
+            movie.place = $(this).find('input[name=place]').val();
+            movie.startTime = $(this).find('input[name=startTime]').val();
+            movie.mno = 1;
+            list.push(movie);
+        });
+        console.log(JSON.stringify(list));
+        console.log(list);
+
+        $.ajax({
+            url: '/movie/infoRegister',
+            method: 'post',
+            contentType: 'application/json; charset=uft-8',
+            data:  JSON.stringify(list)
+        });
+    }
+
+    function test(){
+        alert("test");
+    }
+</script>
+
+</body>
+</html>
