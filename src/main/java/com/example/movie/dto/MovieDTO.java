@@ -19,7 +19,7 @@ public class MovieDTO {
     private String path;
     private String imgName;
 
-    public String getImageURL() throws UnsupportedEncodingException {
+    public String imageURL() throws UnsupportedEncodingException {
         return URLEncoder.encode(path, "UTF-8");
     }
 }

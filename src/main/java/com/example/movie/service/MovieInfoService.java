@@ -11,7 +11,8 @@ import java.util.*;
 public interface MovieInfoService {
     List<MovieInfoDTO> getMovieList(String date);
     List<MovieInfoDTO> getMovie(String date, Long mno);
-    void seatRegister(List<Integer> indexList, Long mino);
+    void seatUpdate(List<Integer> indexList, Long mino);
+    void infoRegister(List<MovieInfoDTO> movieInfoDTOList);
 
     default MovieInfoDTO entityToDTO(MovieInfo movieInfo) throws ParseException {
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
@@ -26,6 +27,7 @@ public interface MovieInfoService {
                 .path(movieInfo.getMovie().getPath())
                 .imgName(movieInfo.getMovie().getImgName())
                 .build();
+
         MovieInfoDTO movieInfoDTO = MovieInfoDTO.builder()
                 .mino(movieInfo.getMino())
                 .date(movieInfo.getDate())
@@ -36,5 +38,30 @@ public interface MovieInfoService {
                 .movieDTO(movieDTO)
                 .build();
         return movieInfoDTO;
+    }
+
+    default MovieInfo dtoToEntity(MovieInfoDTO movieInfoDTO){
+        MovieInfo movieInfo = MovieInfo.builder()
+                .mino(movieInfoDTO.getMino())
+                .date(movieInfoDTO.getDate())
+                .place(movieInfoDTO.getPlace())
+                .seat("0".repeat(72))
+                .startTime(movieInfoDTO.getStartTime())
+                .movie(dtoToEntity(movieInfoDTO.getMovieDTO()))
+                .build();
+        return movieInfo;
+    }
+
+    default Movie dtoToEntity(MovieDTO movieDTO){
+        Movie movie = Movie.builder()
+                .mno(movieDTO.getMno())
+                .name(movieDTO.getName())
+                .summary(movieDTO.getSummary())
+                .time(movieDTO.getTime())
+                .imgName(movieDTO.getImgName())
+                .path(movieDTO.getPath())
+                .totalGrade(movieDTO.getTotalGrade())
+                .build();
+        return movie;
     }
 }

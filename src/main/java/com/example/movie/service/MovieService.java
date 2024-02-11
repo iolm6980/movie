@@ -10,6 +10,7 @@ public interface MovieService {
     List<MovieDTO> getMovieList();
     default Movie dtoToEntity(MovieDTO movieDTO){
         Movie movie = Movie.builder()
+                .mno(movieDTO.getMno())
                 .name(movieDTO.getName())
                 .summary(movieDTO.getSummary())
                 .time(movieDTO.getTime())

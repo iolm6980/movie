@@ -46,7 +46,7 @@ public class MovieInfoServiceImpl implements MovieInfoService{
     }
 
     @Override
-    public void seatRegister(List<Integer> indexList, Long mino) {
+    public void seatUpdate(List<Integer> indexList, Long mino) {
         Optional<MovieInfo> movieInfo = movieInfoRepository.findById(mino);
         if(movieInfo.isPresent()) {
             MovieInfo result = movieInfo.get();
@@ -55,5 +55,12 @@ public class MovieInfoServiceImpl implements MovieInfoService{
             result.changeSeat(String.valueOf(sb));
             movieInfoRepository.save(result);
         }
+    }
+
+    @Override
+    public void infoRegister(List<MovieInfoDTO> movieInfoDTOList) {
+        List<MovieInfo> list = movieInfoDTOList.stream().map(movieInfo -> dtoToEntity(movieInfo)).collect(Collectors.toList());
+        System.out.println("register.............." + list);
+        movieInfoRepository.saveAll(list);
     }
 }

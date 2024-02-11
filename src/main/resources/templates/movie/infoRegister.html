@@ -9,7 +9,7 @@
         <div th:replace="~{layout/layout :: top}"></div>
         <button class="movie-add">추가 버튼</button>
         <div class="d-flex justify-content-center">
-            <form class="register-form" action="/movie/infoRegister" method="post">
+            <form class="register-form">
                 <div class="w-100 m-3">
                     <table class="table">
                         <thead>
@@ -18,16 +18,20 @@
                             <th scope="col">상영 날짜</th>
                             <th scope="col">상영 장소</th>
                             <th scope="col">시작 시간</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody class="inputAddArea">
                         <tr class="inputValue">
-                            <td><select class="form-select" aria-label="Default select example" name="movieDTO.mno">
-                                <option th:each="movieDTO :${movieDTOList}" th:value="${movieDTO.mno}">[[${movieDTO.name}]]</option>
+                            <td><select class="form-select" aria-label="Default select example" name="movieDTO.mno" >
+                                <option th:each="movieDTO, idx :${movieDTOList}" th:value="${idx.count-1}">[[${movieDTO.name}]]</option>
                             </select></td>
-                            <td><input type="date" class="" name="date" required></td>
-                            <td><input type="text" class="place" name="place" required></td>
-                            <td><input type="time" class="" name="startTime" required></td>
+                            <td><input type="date" class="" name="date" ></td>
+                            <td><input type="text" class="" name="place" ></td>
+                            <td><input type="time" class="" name="startTime" ></td>
+                            <td><button class="delete-movieInfo btn btn-outline-secondary">X</button></td>
+                            <input type="hidden" name="time" th:value="${movieDTOList[0].time}">
+                            <input type="hidden" name="mno" th:value="${movieDTOList[0].mno}">
                         </tr>
                         </tbody>
                     </table>
@@ -47,19 +51,20 @@
         var str = "";
         str += "<tr class='inputValue'>"
         str += '<td><select class="form-select" aria-label="Default select example" name="movieDTO.mno">';
-        [# th:each="movieDTO : ${movieDTOList}"]
-            str += "<option value='" + [[${movieDTO.mno}]] + "'>" + [[${movieDTO.name}]] + "</option>";
+        [# th:each="movieDTO, idx : ${movieDTOList}"]
+            str += "<option value='" + [[${idx.count-1}]] + "'>" + [[${movieDTO.name}]] + "</option>";
         [/]
         str += '</select></td>';
-        str += '<td><input type="date" class="" name="date" required></td>';
-        str += '<td><input type="text" class="" name="place" required></td>';
-        str += '<td><input type="time" class="" name="startTime" required></td>';
+        str += '<td><input type="date" class="" name="date" ></td>';
+        str += '<td><input type="text" class="" name="place" ></td>';
+        str += '<td><input type="time" class="" name="startTime" ></td>';
+        str += '<td><button class="delete-movieInfo btn btn-outline-secondary">X</button></td>';
+        str += '<input type="hidden" name="time" value="' + [[${movieDTOList[0].time}]] + '">';
+        str += '<input type="hidden" name="mno" value="' + [[${movieDTOList[0].mno}]] + '">';
         str += '</tr>';
 
         $(".inputAddArea").prepend(str);
     });
-
-
 
     function infoRegister(){
         var list = [];
@@ -68,22 +73,34 @@
             movie.date = $(this).find('input[name=date]').val();
             movie.place = $(this).find('input[name=place]').val();
             movie.startTime = $(this).find('input[name=startTime]').val();
-            movie.mno = 1;
+            movie.movieDTO = {mno: $(this).find('input[name=mno]').val(), time: $(this).find('input[name=time]').val()};
             list.push(movie);
         });
-        console.log(JSON.stringify(list));
-        console.log(list);
 
         $.ajax({
             url: '/movie/infoRegister',
             method: 'post',
             contentType: 'application/json; charset=uft-8',
-            data:  JSON.stringify(list)
+            data:  JSON.stringify(list),
+            success: function(){
+                alert("등록 성공");
+                location.replace("/movie/list");
+            }
         });
     }
 
-    function test(){
-        alert("test");
+    $(document).on("change", ".form-select", function(){
+        var movie = [[${movieDTOList}]];
+        $(this).parents(".inputValue").find('input[name=time]').val(movie[$(this).val()].time);
+        $(this).parents(".inputValue").find('input[name=mno]').val(movie[$(this).val()].mno);
+    });
+
+     $(document).on("click", ".delete-movieInfo", function(){
+        $(this).parents(".inputValue").remove();
+    });
+
+    function test(test){
+       console.log(test);
     }
 </script>
 

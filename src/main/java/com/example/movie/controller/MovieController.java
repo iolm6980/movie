@@ -72,8 +72,8 @@ public class MovieController {
     }
 
     @PostMapping("/seat")
-    public String seatRegister(@RequestParam List<Integer> index, Long mino){
-        movieInfoService.seatRegister(index, mino);
+    public String seatUpdate(@RequestParam List<Integer> index, Long mino){
+        movieInfoService.seatUpdate(index, mino);
         return "redirect:/movie/list";
     }
 
@@ -107,8 +107,9 @@ public class MovieController {
     }
     @ResponseBody
     @PostMapping("/infoRegister")
-    public void postInfoRegister(@RequestBody List<MovieInfoDTO> movieInfoDTOList){
+    public ResponseEntity<?> postInfoRegister(@RequestBody List<MovieInfoDTO> movieInfoDTOList){
         System.out.println("infoRegister............" + movieInfoDTOList);
-
+        movieInfoService.infoRegister(movieInfoDTOList);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

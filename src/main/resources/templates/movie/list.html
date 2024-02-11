@@ -23,7 +23,7 @@
                     <div class="movie-list ps-sm-5 mb-xl-5" th:each="movieInfo: ${movieInfoList}">
                         <a th:href="@{/movie/detail(date=${movieInfo.date}, mno=${movieInfo.movieDTO.mno})}">
                             <div class="d-flex">
-                                <img th:src="|/upload/display?fileName=${movieInfo.movieDTO.getImageURL()}|" style="width:25%; padding: 10px">
+                                <img th:src="|/upload/display?fileName=${movieInfo.movieDTO.imageURL()}|" style="width:25%; padding: 10px">
                                 <div class="movie-info p-4 w-100">
                                     <h3>[[${movieInfo.movieDTO.name}]]</h3>
                                     <span class="star">
