@@ -16,4 +16,5 @@ public class ReplyServiceTests {
         System.out.println(replyService.getReplyList(1L, 0).getDtoList());
 
     }
+
 }

@@ -7,7 +7,6 @@
 <div class="d-flex" id="wrapper">
     <div id="page-content-wrapper">
         <div th:replace="~{layout/layout :: top}"></div>
-        <button class="movie-add">추가 버튼</button>
         <div class="d-flex justify-content-center">
             <form class="register-form">
                 <div class="w-100 m-3">
@@ -36,10 +35,11 @@
                         </tbody>
                     </table>
                 </div>
-                <div align="right">
-                    <button class="btn btn-primary float-right register-btn" onclick="infoRegister()">등록하기</button>
-                </div>
             </form>
+            <div align="right">
+                <button class="btn btn-primary float-right register-btn" onclick="return infoRegister()">등록하기</button>
+                <button class="movie-add btn btn-secondary float-right">영화 추가</button>
+            </div>
         </div>
     </div>
 </div>
@@ -68,15 +68,24 @@
 
     function infoRegister(){
         var list = [];
-        $('.inputValue').each(function(index,item){
-            var movie = new Object();
-            movie.date = $(this).find('input[name=date]').val();
-            movie.place = $(this).find('input[name=place]').val();
-            movie.startTime = $(this).find('input[name=startTime]').val();
-            movie.movieDTO = {mno: $(this).find('input[name=mno]').val(), time: $(this).find('input[name=time]').val()};
-            list.push(movie);
-        });
-
+        var flag = 0;
+        try{
+            $('.inputValue').each(function(index,item){
+                var movie = new Object();
+                movie.date = $(this).find('input[name=date]').val();
+                movie.place = $(this).find('input[name=place]').val();
+                movie.startTime = $(this).find('input[name=startTime]').val();
+                if(movie.date == "" || movie.place == "" || movie.startTime == ""){
+                    alert("모든 정보를 입력해주세요");
+                    throw 'finish';
+                }
+                movie.movieDTO = {mno: $(this).find('input[name=mno]').val(), time: $(this).find('input[name=time]').val()};
+                list.push(movie);
+            });
+        }catch(Exception){
+            if (Exception !== 'finish') throw Exception;
+            else return false;
+        }
         $.ajax({
             url: '/movie/infoRegister',
             method: 'post',
