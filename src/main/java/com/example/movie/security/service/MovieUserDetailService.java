@@ -30,7 +30,8 @@ public class MovieUserDetailService implements UserDetailsService {
         Member member = memberOptional.get();
         System.out.println("userDetailService.............." + member);
         List<GrantedAuthority> roles = new ArrayList<>();
-        if(member.getRole() == "ADMIN") roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        if(member.getRole().equals("ADMIN")) roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+
         roles.add(new SimpleGrantedAuthority("ROLE_USER"));
         AuthMemberDTO authMemberDTO = new AuthMemberDTO(
                 member.getMemberId(),

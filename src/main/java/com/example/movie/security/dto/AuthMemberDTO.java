@@ -7,11 +7,11 @@ import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 
 public class AuthMemberDTO extends User {
-    private String id;
+    private String memberId;
     private String password;
 
     public AuthMemberDTO(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
-        this.id = username;
+        this.memberId = username;
     }
 }

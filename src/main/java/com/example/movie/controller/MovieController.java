@@ -47,14 +47,18 @@ public class MovieController {
     }
 
     @GetMapping("/list")
-    public void list(@RequestParam(required = false) String date, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO, HttpServletRequest request){
+    public void list(@RequestParam(required = false) String date, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO) throws ParseException {
+        System.out.println("auth..........." + authMemberDTO);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         if(date == null) {
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date today = new Date();
             date = dateFormat.format(today);
+        }else {
+            Date dat = dateFormat.parse(date);
+            date = dateFormat.format(dat);
         }
         model.addAttribute("movieInfoList", movieInfoService.getMovieList(date));
-
+        model.addAttribute("auth", authMemberDTO);
     }
 
     @GetMapping("/detail")
@@ -69,6 +73,7 @@ public class MovieController {
             movieInfoDTO.setSeatCnt(cnt);
         });
         model.addAttribute("movieInfoList", movieDTOList);
+        model.addAttribute("auth", authMemberDTO);
     }
 
     @PostMapping("/seat")
@@ -79,8 +84,8 @@ public class MovieController {
 
 
     @GetMapping("/movieRegister")
-    public void getMovieRegister(){
-
+    public void getMovieRegister(Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO){
+        model.addAttribute("auth", authMemberDTO);
     }
 
     @PostMapping("/movieRegister")
@@ -99,11 +104,12 @@ public class MovieController {
     }
 
     @GetMapping("/infoRegister")
-    public void getInfoRegister(Model model){
+    public void getInfoRegister(Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO){
         List<MovieDTO> movieDTOList = movieService.getMovieList();
         List<MovieInfoDTO> movieInfoDTOList = movieInfoService.getMovieList("2024-02-08");
         model.addAttribute("movieDTOList", movieDTOList);
         model.addAttribute("movieInfoDTOList", movieInfoDTOList);
+        model.addAttribute("auth", authMemberDTO);
     }
     @ResponseBody
     @PostMapping("/infoRegister")

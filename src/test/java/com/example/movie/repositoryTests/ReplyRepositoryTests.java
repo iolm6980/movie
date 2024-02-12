@@ -26,7 +26,7 @@ public class ReplyRepositoryTests {
     @Test
     public void ReplyInsertTest(){
         IntStream.rangeClosed(1, 50).forEach(i ->{
-            Movie movie = Movie.builder().mno(1L).build();
+            Movie movie = Movie.builder().mno(42L).build();
             Member member = Member.builder().memberId("test1").build();
             Reply reply = Reply.builder()
                     .movie(movie)

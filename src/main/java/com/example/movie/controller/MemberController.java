@@ -24,6 +24,7 @@ public class MemberController {
 
     @GetMapping("/register")
     public void getRegister(){
+
         System.out.println("register.............");
     }
     @ResponseBody

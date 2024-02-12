@@ -18,11 +18,27 @@
     <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
+            <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
+                <a sec:authorize="hasRole('ADMIN')" class="nav-link" href="/movie/movieRegister">영화 등록</a>
+                <a sec:authorize="hasRole('ADMIN')" class="nav-link" href="/movie/infoRegister">정보 등록</a>
+                <li sec:authorize="!hasAnyRole('USER')"class="nav-item active"><a class="nav-link" href="/member/login">로그인</a></li>
+                <li class="nav-item dropdown">
+                    <a sec:authorize="hasAnyRole('USER')" class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[[${auth.username}]]</a>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/cart/myCartList">예매목록</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="/logout">로그아웃</a>
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </nav>
-
+<div class="border-end bg-white" id="sidebar-wrapper" th:fragment="side">
+    <div class="sidebar-heading border-bottom text-center bg-light"><a href="/movie/list">MOVIE</a></div>
+    <div class="list-group list-group-flush" id="movie-date">
+    </div>
+</div>
 
 </body>
 </html>

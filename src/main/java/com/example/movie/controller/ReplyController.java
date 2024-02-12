@@ -12,12 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.net.URI;
+
+@Controller
 @RequestMapping("/reply")
 @RequiredArgsConstructor
 public class ReplyController {
     private final ReplyService replyService;
 
+    @ResponseBody
     @GetMapping(value = "/{mno}" ,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> replyList(@PathVariable Long mno, @RequestParam(defaultValue = "0") int page){
 
@@ -27,9 +30,10 @@ public class ReplyController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @PostMapping("/register")
-    public void replyRegister(@ModelAttribute ReplyDTO replyDTO){
+    public String replyRegister(@ModelAttribute ReplyDTO replyDTO){
         System.out.println("reply........" + replyDTO);
-        //replyService.ReplyRegister(replyDTO);
+        replyService.ReplyRegister(replyDTO);
+        return "redirect:/movie/list";
     }
 
 }

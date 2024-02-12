@@ -6,11 +6,8 @@
 <body>
 <div class="d-flex" id="wrapper">
     <!-- Sidebar-->
-    <div class="border-end bg-white" >
-        <div class="sidebar-heading border-bottom bg-light"><a href="/shopping/list">Movie</a></div>
-        <div class="list-group list-group-flush" id="movie-date">
-        </div>
-    </div>
+
+    <div th:replace="~{layout/layout :: side}"></div>
     <!-- Page content wrapper-->
     <div id="page-content-wrapper">
 
@@ -26,6 +23,7 @@
                                 <img th:src="|/upload/display?fileName=${movieInfo.movieDTO.imageURL()}|" style="width:25%; padding: 10px">
                                 <div class="movie-info p-4 w-100">
                                     <h3>[[${movieInfo.movieDTO.name}]]</h3>
+                                    <h4>[[${movieInfo.movieDTO.summary}]]</h4>
                                     <span class="star">
                                       ★★★★★
                                       <span th:style="'width:' + ${movieInfo.movieDTO.totalGrade} + '%'">★★★★★</span>
@@ -45,15 +43,14 @@
 <!-- Core theme JS-->
 
 </body>
-<script th:inline="javascript">;
-
+<script th:inline="javascript">
     var date = new Date();
     var today = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
-    for(var i=1; i<=7; i++){
-        date.setDate(date.getDate() + 1);
+    for(var i=0; i<5; i++){
         var day = (date.getMonth()+1) + "월 " + date.getDate() + "일";
         var link = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
-        $("#movie-date").append("<a class='list-group-item list-group-item-action list-group-item-light p-3' href='/movie/list?date=" + link + "'>" + day + "</a>");
+        $("#movie-date").append("<a class='list-group-item list-group-item-action list-group-item-light text-center p-3' href='/movie/list?date=" + link + "'>" + day + "</a>");
+        date.setDate(date.getDate() + 1);
     }
 </script>
 </html>
