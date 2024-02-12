@@ -9,6 +9,7 @@ import com.example.movie.entity.Reply;
 public interface ReplyService {
     PageResultDTO<ReplyDTO, Object[]> getReplyList(Long mno, int page);
     void ReplyRegister(ReplyDTO replyDTO);
+    Long getTotalGrade(Long mno);
     default ReplyDTO entityToDTO(Reply reply){
         ReplyDTO replyDTO = ReplyDTO.builder()
                 .rno(reply.getRno())

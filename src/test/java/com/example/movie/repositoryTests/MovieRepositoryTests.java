@@ -36,6 +36,9 @@ public class MovieRepositoryTests {
         System.out.println(p.getPageSize());
         int page = 5;
         int tempEnd = (int) (Math.ceil(page/10.0)) * 10;
-
+    }
+    @Test
+    public void updateGrade(){
+        movieRepository.updateGrade(42L, 50L);
     }
 }

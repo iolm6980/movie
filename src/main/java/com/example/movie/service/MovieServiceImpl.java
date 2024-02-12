@@ -24,4 +24,9 @@ public class MovieServiceImpl implements MovieService {
         List<MovieDTO> list = movieRepository.findAll().stream().map(movie -> entityToDTO(movie)).collect(Collectors.toList());
         return list;
     }
+
+    @Override
+    public void updateGrade(Long totalGrade, Long mno) {
+        movieRepository.updateGrade(mno, totalGrade);
+    }
 }

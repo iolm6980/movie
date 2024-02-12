@@ -41,9 +41,9 @@ public class MovieController {
 
     @Value("${com.example.upload.path}")
     private String uploadPath;
-    @GetMapping("/test")
+    @PostMapping("/test")
     public void test() {
-
+        System.out.println("test.......................");
     }
 
     @GetMapping("/list")
@@ -118,4 +118,11 @@ public class MovieController {
         movieInfoService.infoRegister(movieInfoDTOList);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @ResponseBody
+    @PostMapping("/updateGrade")
+    public void updateGrade(Long totalGrade, Long mno){
+        System.out.println("updateGrade........" + totalGrade + " mno: " + mno);
+        movieService.updateGrade(totalGrade, mno);
+    }
+
 }

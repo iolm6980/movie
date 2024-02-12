@@ -55,9 +55,9 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(requests ->
                         requests.requestMatchers("/movie/list").permitAll()
-                                .requestMatchers("/movie/detail").hasRole("USER")
                                 .requestMatchers("/movie/movieRegister").hasRole("ADMIN")
                                 .requestMatchers("/movie/infoRegister").hasRole("ADMIN")
+                                .requestMatchers("/movie/**").hasRole("USER")
                                 .requestMatchers("/reply/**").hasRole("USER")
                                 .requestMatchers("/pay/**").hasRole("USER")
                                 .requestMatchers("/logout").hasRole("USER")

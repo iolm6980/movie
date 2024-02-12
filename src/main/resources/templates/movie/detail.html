@@ -78,12 +78,12 @@
                     <input type="hidden" name="memberId" th:value="${auth.username}">
             </div>
             <div class="modal-footer">
-                <span class="star">
+                <span class="star-input">
                   ★★★★★
                   <span>★★★★★</span>
                   <input type="range" oninput="drawStar(this)" name="grade" value="1" step="1" min="0" max="100">
                 </span>
-                <button class="ms-sm-auto btn btn-outline-dark">작성하기</button>
+                <button class="ms-sm-auto btn btn-outline-dark reply-register-btn" type="button">작성하기</button>
             </div>
             </form>
         </div>
@@ -111,11 +111,14 @@
             var str = "";
             $.each(replyList.dtoList, function(idx, reply){
                 console.log(reply);
-                str += '<div class="card-container items">';
+                str += '<div class="card-container items" style="position:relative; height;">';
                 str += '<div class="card-top pb-3">' + reply.memberId + '</div>';
                 str += '<div class="card-bottom">';
                 str += '<div class="card-name">' + reply.content + '</div>';
-                str += '</div> </div>';
+                str += '<span class="star" style="position:absolute; bottom:10px; left:20px;">';
+                str += '★★★★★';
+                str += '<span style="width:' + reply.grade + '%">★★★★★</span>';
+                str += '</span> </div> </div>';
             });
             str += '<div class="w-100 float-end">'
             str += '<div class="bottom-right fixed bo">';
@@ -222,10 +225,46 @@
         replyModal.show('show');
     }
 
+    $(".reply-register-btn").click(function(){
+        var data = {
+            content: $("input[name='content']").val(),
+            movieDTO: {mno: $("input[name='movieDTO.mno']").val()},
+            memberId: $("input[name='memberId']").val(),
+            grade: $("input[name='grade']").val()
+        }
+        console.log(data);
+
+        $.ajax({
+            url: '/reply/register',
+            method: 'post',
+            contentType: 'application/json; charset-utf-8',
+            data: JSON.stringify(data),
+            success: function(totalGrade){
+                updateGrade(totalGrade);
+                replyModal.hide();
+            },
+        });
+    });
+
+    function test(){
+        console.log("test");
+    }
+
+    function updateGrade(totalGrade){
+        console.log();
+        $.ajax({
+            url: '/movie/updateGrade?totalGrade=' + totalGrade + '&mno=' + [[${movieInfoList[0].movieDTO.mno}]],
+            method: 'post',
+            success: function(){
+                alert("등록 완료");
+            },
+        });
+    }
+
 
 
    const drawStar = (target) => {
-      document.querySelector(`.star span`).style.width = `${target.value}%`;
+      document.querySelector(`.star-input span`).style.width = `${target.value}%`;
    }
 
    function hideModal(){

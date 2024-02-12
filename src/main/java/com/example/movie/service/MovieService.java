@@ -8,6 +8,7 @@ import java.util.*;
 public interface MovieService {
     void movieRegister(MovieDTO movieDTO);
     List<MovieDTO> getMovieList();
+    void updateGrade(Long totalGrade, Long mno);
     default Movie dtoToEntity(MovieDTO movieDTO){
         Movie movie = Movie.builder()
                 .mno(movieDTO.getMno())

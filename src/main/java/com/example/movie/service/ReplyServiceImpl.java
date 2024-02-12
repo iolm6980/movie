@@ -32,4 +32,9 @@ public class ReplyServiceImpl implements ReplyService{
     public void ReplyRegister(ReplyDTO replyDTO) {
         replyRepository.save(DtoToEntity(replyDTO));
     }
+
+    @Override
+    public Long getTotalGrade(Long mno) {
+        return replyRepository.getTotalGrade(mno);
+    }
 }

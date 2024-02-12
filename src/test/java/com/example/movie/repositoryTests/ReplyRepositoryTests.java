@@ -44,5 +44,12 @@ public class ReplyRepositoryTests {
 
     }
 
+    @Test
+    public void getGrade(){
+        System.out.println(replyRepository.getTotalGrade(43L));
+    }
+
+
+
 
 }
