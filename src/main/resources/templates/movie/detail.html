@@ -59,6 +59,7 @@
                 <h5 class="show-money">0</h5>
                 <h5 > 원</h5>
                 <button class="submit-seat ms-sm-auto btn btn-outline-dark">예매하기</button>
+                <button sec:authorize="hasRole('ADMIN')" class="ms-sm-auto btn btn-danger" onclick="modifyMovieInfo()">수정하기</button>
             </div>
         </div>
     </div>
@@ -102,6 +103,7 @@
     $(document).ready(function(){
         seatModal.hide();
         replyModal.hide();
+
         loadReply(0);
     });
 
@@ -148,14 +150,37 @@
 
     function showSeat(selectMovieInfo){
         var str = "";
+        var admin = 0;
         movieInfo = selectMovieInfo;
-        console.log(movieInfo);
+        console.log(selectMovieInfo);
+        [[${auth.authorities}]].filter(member => {
+            if(member['authority'] == "ROLE_ADMIN") admin = 1;
+        });
+        if(admin == 1) {
+            str += '<form action="/movie/infoRegister" method="post" class="modify-form">';
+            str += '<table class="table"> <thead> <tr>';
+            str += '<th scope="col">상영 날짜</th>';
+            str += '<th scope="col">상영 장소</th>';
+            str += '<th scope="col">시작 시간</th>';
+            str += '<th scope="col"></th>';
+            str += '</tr> </thead>';
+            str += '<tbody> <tr>';
+            str += '<td><input type="date" name="date" value="' + selectMovieInfo.date + '"></td>';
+            str += '<td><input type="text" name="place" value="' + selectMovieInfo.place + '"></td>';
+            str += '<td><input type="time" name="startTime" value="' + selectMovieInfo.startTime + '"></td>';
+            str += '<input type="hidden" name="time" value="' + selectMovieInfo.movieDTO.time + '">';
+            str += '<input type="hidden" name="mno" value="' + selectMovieInfo.movieDTO.mno + '">';
+            str += '<input type="hidden" name="seat" value="' + selectMovieInfo.seat + '">';
+            str += '<input type="hidden" name="mino" value="' + selectMovieInfo.mino + '">';
+            str += '</tr> </tbody> </table> </form>';
+        }
         str += '<form action="/movie/seat" method="post" class="seat-form">';
         for(var i=0; i<selectMovieInfo.seat.length/12; i++){
             str += '<div class="index-list">';
             for(var j=1; j<=12; j++){
                 if(selectMovieInfo.seat.charAt(i*12+j-1) == '1') {
-                    str += '<input type="checkbox" class="btn-check" name="index" id="' + (i*12+j) + '" value="' + (i*12+j) + '" autocomplete="off" disabled>';
+                    if(admin == 1) str += '<input type="checkbox" class="btn-check" name="index" id="' + (i*12+j) + '" value="' + (i*12+j) + '" autocomplete="off">';
+                    else str += '<input type="checkbox" class="btn-check" name="index" id="' + (i*12+j) + '" value="' + (i*12+j) + '" autocomplete="off" disabled>';
                     str += '<label class="btn" for="' + (i*12+j) + '" style="width:50px; height:40px; border:1px solid; margin:1.5px;">X</label>';
                 }
                 else{
@@ -261,6 +286,28 @@
         });
     }
 
+    function modifyMovieInfo(){
+        var list = [];
+        var movieInfo = new Object();
+        movieInfo.mino = $('input[name=mino]').val();
+        movieInfo.date = $('input[name=date]').val();
+        movieInfo.place = $('input[name=place]').val();
+        movieInfo.seat = $('input[name=seat]').val();
+        movieInfo.startTime = $('input[name=startTime]').val();
+        movieInfo.movieDTO = {mno: $('input[name=mno]').val(), time: $('input[name=time]').val()};
+        list.push(movieInfo);
+        console.log(movieInfo);
+        $.ajax({
+            url: '/movie/infoRegister',
+            method: 'post',
+            contentType: 'application/json; charset=uft-8',
+            data:  JSON.stringify(list),
+            success: function(){
+                alert("수정 성공");
+                $(".seat-form").submit();
+            }
+        });
+    }
 
 
    const drawStar = (target) => {

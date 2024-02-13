@@ -16,6 +16,6 @@ public class Pay {
     private int totalPrice;
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private MovieInfo movieInfo;
 }

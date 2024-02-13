@@ -54,7 +54,10 @@ public class MovieInfoRepositoryTests {
         String today = dateFormat.format(date);
         System.out.println(movieInfoRepository.findByDateAndMovieMno(today, 1L));
     }
-
+    @Test
+    public void getMovieInfoList(){
+        System.out.println(movieInfoRepository.findByMovieMno(44L));
+    }
     @Test
     public void test(){
 

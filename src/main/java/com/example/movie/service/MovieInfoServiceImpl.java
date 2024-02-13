@@ -51,7 +51,10 @@ public class MovieInfoServiceImpl implements MovieInfoService{
         if(movieInfo.isPresent()) {
             MovieInfo result = movieInfo.get();
             StringBuilder sb = new StringBuilder(result.getSeat());
-            indexList.forEach(i -> sb.setCharAt(i-1, '1'));
+            indexList.forEach(i -> {
+                if(sb.charAt(i-1) == '1') sb.setCharAt(i-1, '0');
+                else sb.setCharAt(i-1, '1');
+            });
             result.changeSeat(String.valueOf(sb));
             movieInfoRepository.save(result);
         }
@@ -63,4 +66,24 @@ public class MovieInfoServiceImpl implements MovieInfoService{
         System.out.println("register.............." + list);
         movieInfoRepository.saveAll(list);
     }
+
+    @Override
+    public List<MovieInfoDTO> getMovieInfoList(Long mno) {
+        List<MovieInfoDTO> movieInfoDTOList = movieInfoRepository.findByMovieMno(mno).stream().map(movieInfo -> {
+            try {
+                return entityToDTO(movieInfo);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }).collect(Collectors.toList());
+        return movieInfoDTOList;
+    }
+
+    @Override
+    public void infoModify(MovieInfoDTO movieInfoDTO) {
+        MovieInfo movieInfo = dtoToEntity(movieInfoDTO);
+        System.out.println("modify.............." + movieInfo);
+        movieInfoRepository.save(movieInfo);
+    }
+
 }

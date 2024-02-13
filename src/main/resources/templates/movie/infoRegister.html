@@ -71,16 +71,16 @@
         var flag = 0;
         try{
             $('.inputValue').each(function(index,item){
-                var movie = new Object();
-                movie.date = $(this).find('input[name=date]').val();
-                movie.place = $(this).find('input[name=place]').val();
-                movie.startTime = $(this).find('input[name=startTime]').val();
-                if(movie.date == "" || movie.place == "" || movie.startTime == ""){
+                var movieInfo = new Object();
+                movieInfo.date = $(this).find('input[name=date]').val();
+                movieInfo.place = $(this).find('input[name=place]').val();
+                movieInfo.startTime = $(this).find('input[name=startTime]').val();
+                if(movieInfo.date == "" || movieInfo.place == "" || movieInfo.startTime == ""){
                     alert("모든 정보를 입력해주세요");
                     throw 'finish';
                 }
-                movie.movieDTO = {mno: $(this).find('input[name=mno]').val(), time: $(this).find('input[name=time]').val()};
-                list.push(movie);
+                movieInfo.movieDTO = {mno: $(this).find('input[name=mno]').val(), time: $(this).find('input[name=time]').val()};
+                list.push(movieInfo);
             });
         }catch(Exception){
             if (Exception !== 'finish') throw Exception;

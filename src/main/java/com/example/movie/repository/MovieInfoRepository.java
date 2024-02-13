@@ -12,4 +12,6 @@ public interface MovieInfoRepository extends JpaRepository<MovieInfo, Long> {
     List<MovieInfo> findByDate(String date);
     @EntityGraph(attributePaths = "movie")
     List<MovieInfo> findByDateAndMovieMno(String date, Long mno);
+    @EntityGraph(attributePaths = "movie")
+    List<MovieInfo> findByMovieMno(Long mno);
 }

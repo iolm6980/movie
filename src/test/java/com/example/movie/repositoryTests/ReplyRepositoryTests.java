@@ -40,8 +40,7 @@ public class ReplyRepositoryTests {
 
 
     @Test
-    public void getReplyList(ReplyDTO replyDTO){
-
+    public void getReplyList(){
     }
 
     @Test

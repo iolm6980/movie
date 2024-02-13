@@ -5,6 +5,9 @@ import com.example.movie.repository.PayRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class PayServiceImpl implements PayService{
@@ -13,5 +16,11 @@ public class PayServiceImpl implements PayService{
     @Override
     public void register(PayDTO payDTO) {
         payRepository.save(DtoToEntity(payDTO));
+    }
+
+    @Override
+    public List<PayDTO> getPayList(String memberId) {
+        List<PayDTO> payDTOList = payRepository.findByMemberMemberId(memberId).stream().map(pay -> entityToDto(pay)).collect(Collectors.toList());
+        return payDTOList;
     }
 }

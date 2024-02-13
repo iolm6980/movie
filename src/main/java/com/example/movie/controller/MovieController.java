@@ -64,7 +64,7 @@ public class MovieController {
     @GetMapping("/detail")
     public void detail(String date, Long mno, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO){
         System.out.println("date: " + date + " name: " + mno);
-        System.out.println("authMemberDTO: " + authMemberDTO);
+        System.out.println("authMemberDTO: " + authMemberDTO.getAuthorities());
         List<MovieInfoDTO> movieDTOList = movieInfoService.getMovie(date, mno);
         movieDTOList.forEach(movieInfoDTO ->{
             int cnt = 0;

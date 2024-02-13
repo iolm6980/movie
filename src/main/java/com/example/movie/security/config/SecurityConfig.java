@@ -53,7 +53,7 @@ public class SecurityConfig {
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
         http.authenticationManager(authenticationManager);
 
-        http.authorizeHttpRequests(requests ->
+        http.authorizeHttpRequests(requests -> //requests.requestMatchers("/**").permitAll()
                         requests.requestMatchers("/movie/list").permitAll()
                                 .requestMatchers("/movie/movieRegister").hasRole("ADMIN")
                                 .requestMatchers("/movie/infoRegister").hasRole("ADMIN")

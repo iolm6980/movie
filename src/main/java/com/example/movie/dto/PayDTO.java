@@ -3,9 +3,11 @@ package com.example.movie.dto;
 import com.example.movie.entity.Member;
 import com.example.movie.entity.MovieInfo;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
+@Builder
 public class PayDTO {
 
     private String pid;
