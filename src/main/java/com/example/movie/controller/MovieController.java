@@ -78,6 +78,7 @@ public class MovieController {
 
     @PostMapping("/seat")
     public String seatUpdate(@RequestParam List<Integer> index, Long mino){
+        System.out.println("seatUpdate..........." + index);
         movieInfoService.seatUpdate(index, mino);
         return "redirect:/movie/list";
     }

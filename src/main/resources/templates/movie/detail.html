@@ -6,6 +6,7 @@
 </head>
 <body>
 <div class="d-flex" id="wrapper">
+    <div th:replace="~{layout/layout :: side}"></div>
     <div id="page-content-wrapper">
         <!-- Top navigation-->
         <div th:replace="~{layout/layout :: top}"></div>
@@ -94,7 +95,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
+<div th:replace="~{layout/layout :: script}"></div>
 <script th:inline="javascript">
+
     var seatModal = $('.seat-modal');
     var replyModal = $('.reply-modal');
     var movieInfo;
@@ -208,37 +211,43 @@
         });
         var uuid = crypto.randomUUID();
         var IMP = window.IMP;
-        IMP.init('imp25316417');
-        IMP.request_pay({
-                pg: 'tosspay',
-                pay_method: "card",
-                merchant_uid : uuid,
-                name : movieInfo.movieDTO.name,
-                amount : 10000 * cnt,
-                memberId: 'test1',
-            }, function (rsp) {
-                if (rsp.success) {
+
+         IMP.init('imp25316417');
+         IMP.request_pay({ // 결제 요청
+            pg: 'tosspay',
+            pay_method: "card",
+            merchant_uid : uuid,
+            name : movieInfo.movieDTO.name,
+            amount : 10000 * cnt,
+            memberId: [[${auth.username}]],
+            }, function(res) {
+                if (res.success) {
                     $.ajax({
-                        url: '/pay/register',
+                        url: `/pay/verify/${res.imp_uid}`,
                         method: 'post',
-                        data: JSON.stringify({
-                        pid: uuid,
-                        reserveSeat: seat,
-                        totalPrice: 10000 * cnt,
-                        memberDTO : {memberId: [[${auth.username}]]},
-                        movieInfoDTO: movieInfo
-                    }),
-                    contentType: 'application/json; charset=utf-8',
-                    success: function(){
-                        alert("결제가 완료되었습니다");
-                        $(".seat-form").submit();
-                    }
+                        success: function(){
+                            $.ajax({
+                                url: '/pay/register',
+                                method: 'post',
+                                data: JSON.stringify({
+                                pid: uuid,
+                                reserveSeat: seat,
+                                totalPrice: 10000 * cnt,
+                                memberDTO : {memberId: [[${auth.username}]]},
+                                movieInfoDTO: movieInfo
+                            }),
+                                contentType: 'application/json; charset=utf-8',
+                                success: function(){
+                                    alert("결제가 완료되었습니다");
+                                    $(".seat-form").submit();
+                                }
+                            });
+                        }
                     });
                 } else {
-                    alert(rsp.error_msg);
-                    console.log(rsp);
+                    console.error(res.error_msg);
                 }
-        });
+            });
     });
 
     $(document).on("change", "input[name='index']" ,function(){

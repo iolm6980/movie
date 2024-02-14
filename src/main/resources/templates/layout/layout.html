@@ -25,7 +25,7 @@
                 <li class="nav-item dropdown">
                     <a sec:authorize="hasAnyRole('USER')" class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">[[${auth.username}]]</a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="/cart/myCartList">예매목록</a>
+                        <a class="dropdown-item" href="/pay/list">예매목록</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="/logout">로그아웃</a>
                     </div>
@@ -41,5 +41,15 @@
 </div>
 
 </body>
+<script th:inline="javascript" th:fragment="script">
+    var date = new Date();
+    var today = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+    for(var i=0; i<5; i++){
+        var day = (date.getMonth()+1) + "월 " + date.getDate() + "일";
+        var link = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
+        $("#movie-date").append("<a class='list-group-item list-group-item-action list-group-item-light text-center p-3' href='/movie/list?date=" + link + "'>" + day + "</a>");
+        date.setDate(date.getDate() + 1);
+    }
+</script>
 </html>
 

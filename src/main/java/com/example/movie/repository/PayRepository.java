@@ -7,9 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.*;
 public interface PayRepository extends JpaRepository<Pay, String> {
-    @Query("select p from Pay p " +
+    @Query("select p, mm, mi, m from Pay p " +
             "inner join p.member mm " +
             "inner join p.movieInfo mi " +
-            "inner join p.movieInfo.movie m")
-    List<Pay> findByMemberMemberId(String memberId);
+            "inner join p.movieInfo.movie m " +
+            "where mm.memberId = :memberId")
+    List<Object[]> getPayList(String memberId);
+
 }

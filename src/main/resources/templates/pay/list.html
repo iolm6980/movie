@@ -17,15 +17,19 @@
                 <div class="container">
                     <div class="movie-list ps-sm-5 mb-xl-5" th:each="payDTO: ${payDTOList}">
                         <div class="d-flex">
-                            <img th:src="|/upload/display?fileName=${payDTO.movieInfo.movieDTO.imageURL()}|" style="width:25%; padding: 10px">
+                            <img th:src="|/upload/display?fileName=${payDTO.movieInfoDTO.movieDTO.imageURL()}|" style="width:25%; padding: 10px">
                             <div class="movie-info p-4 w-100" style="position:relative; height;">
                                 <h3>[[${payDTO.movieInfoDTO.movieDTO.name}]]</h3>
-                                <h4>예매 좌석: [[${payDTO.reserveSeat}]]</h4>
+                                <h5>상영 장소: [[${payDTO.movieInfoDTO.place}]]</h5>
+                                <h5>예매 좌석: [[${payDTO.reserveSeat}]]</h5>
+                                <h5>상영 시간: [[${payDTO.movieInfoDTO.startTime}]] ~ [[${payDTO.movieInfoDTO.endTime}]]</h5>
                             </div>
                         </div>
+                        <button class="btn btn-danger" th:onclick="cancelPay([[${payDTO}]])">예매취소</button>
                         <hr>
                     </div>
                 </div>
+
             </section>
         </div>
     </div>
@@ -33,16 +37,40 @@
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
-
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 </body>
+<div th:replace="~{layout/layout :: script}"></div>
 <script th:inline="javascript">
-    var date = new Date();
-    var today = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
-    for(var i=0; i<5; i++){
-        var day = (date.getMonth()+1) + "월 " + date.getDate() + "일";
-        var link = date.getFullYear() + "-" + (date.getMonth()+1) + "-" + date.getDate();
-        $("#movie-date").append("<a class='list-group-item list-group-item-action list-group-item-light text-center p-3' href='/movie/list?date=" + link + "'>" + day + "</a>");
-        date.setDate(date.getDate() + 1);
+    function cancelPay(payDTO){
+        console.log(payDTO);
+        jQuery.ajax({
+          "url": "/pay/cancel",
+          "type": "POST",
+          "contentType": "application/json",
+          "data": JSON.stringify({
+            "merchant_uid": payDTO.pid,
+            "cancel_request_amount": payDTO.totalPrice,
+            "reason": "예매 취소",
+            "payDTO": payDTO
+          }),
+          "dataType": "json",
+          success: function(seatList){
+            console.log(seatList);
+            $.ajax({
+                url: '/movie/seat?index='+ seatList + '&mino=' + payDTO.movieInfoDTO.mino,
+                method: 'post',
+                contentType: 'application/json; charset=utf-8',
+                success: function(){
+                    alert("취소 완료");
+                    location.replace("/movie/list");
+                }
+            });
+          }
+        });
     }
+
 </script>
 </html>
