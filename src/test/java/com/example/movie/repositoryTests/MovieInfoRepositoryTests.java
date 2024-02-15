@@ -26,7 +26,7 @@ public class MovieInfoRepositoryTests {
         String today = dateFormat.format(date);
         String seat = "0".repeat(72);
         IntStream.rangeClosed(1, 10).forEach(i ->{
-            Movie movie = Movie.builder().mno(Long.valueOf(i)).build();
+            Movie movie = Movie.builder().mno(44L).build();
             MovieInfo movieInfo = MovieInfo.builder()
                     .movie(movie)
                     .place( i + "관")

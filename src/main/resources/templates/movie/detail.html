@@ -201,14 +201,17 @@
     }
 
     $(".submit-seat").click(function() {
-        var seat ="";
+        var paySeat ="";
+        var seatList = [];
         var cnt = $('input:checkbox[name=index]:checked').length;
         $('input:checkbox[name=index]').each(function(idx){
                 if($(this).is(":checked")==true){
                     var num = $(this).val();
-                    seat += word[parseInt(num/12)] + "" + (num%12) + " ";
+                    paySeat += word[parseInt(num/12)] + "" + (num%12) + " ";
+                    seatList.push(num);
                 }
         });
+        console.log(seatList);
         var uuid = crypto.randomUUID();
         var IMP = window.IMP;
 
@@ -229,17 +232,22 @@
                             $.ajax({
                                 url: '/pay/register',
                                 method: 'post',
-                                data: JSON.stringify({
-                                pid: uuid,
-                                reserveSeat: seat,
-                                totalPrice: 10000 * cnt,
-                                memberDTO : {memberId: [[${auth.username}]]},
-                                movieInfoDTO: movieInfo
-                            }),
+                                data:
+                                    JSON.stringify({
+                                        pid: uuid,
+                                        reserveSeat: paySeat,
+                                        totalPrice: 10000 * cnt,
+                                        memberDTO : {memberId: [[${auth.username}]]},
+                                        movieInfoDTO: movieInfo,
+                                        seatList: seatList
+                                    }),
                                 contentType: 'application/json; charset=utf-8',
                                 success: function(){
                                     alert("결제가 완료되었습니다");
-                                    $(".seat-form").submit();
+                                    location.replace("/movie/list");
+                                },
+                                error: function(){
+                                    alert("결제 중 오류가 발생했습니다");
                                 }
                             });
                         }
