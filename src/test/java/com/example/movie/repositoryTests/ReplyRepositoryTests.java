@@ -1,6 +1,7 @@
 package com.example.movie.repositoryTests;
 
 import com.example.movie.dto.ReplyDTO;
+
 import com.example.movie.entity.Member;
 import com.example.movie.entity.Movie;
 import com.example.movie.entity.Reply;

@@ -4,6 +4,7 @@ import com.example.movie.dto.CancelDTO;
 import com.example.movie.dto.PayDTO;
 import com.example.movie.security.dto.AuthMemberDTO;
 import com.example.movie.service.PayService;
+import com.example.movie.service.SeatService;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
@@ -29,6 +30,7 @@ import java.util.*;
 @RequestMapping("/pay")
 public class PayController {
     private final PayService payService;
+    private final SeatService seatService;
     @Value("${apiKey}")
     private String apikey;
     @Value("${secretKey}")
@@ -38,7 +40,8 @@ public class PayController {
     @PostMapping("/register")
     public void payRegister(@RequestBody PayDTO payDTO){
         System.out.println("pay........." + payDTO);
-        payService.register(payDTO);
+        seatService.register(payDTO);
+        //payService.register(payDTO);
     }
 
     @GetMapping("/list")

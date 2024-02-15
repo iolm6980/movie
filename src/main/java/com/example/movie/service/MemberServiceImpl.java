@@ -6,11 +6,13 @@ import com.example.movie.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
+@Transactional
 public class MemberServiceImpl implements MemberService{
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
@@ -36,4 +38,16 @@ public class MemberServiceImpl implements MemberService{
         if(optionalMember.isPresent() && passwordEncoder.matches(memberDTO.getPassword(), optionalMember.get().getPassword())) return true;
         return false;
     }
+
+    @Override
+    public void test() throws Exception {
+        int a = 1;
+        Member member = Member.builder().memberId("17").build();
+        memberRepository.save(member);
+        if(a == 1) throw new Exception();
+        Member member1 = Member.builder().memberId("18").build();
+        memberRepository.save(member1);
+    }
+
+
 }

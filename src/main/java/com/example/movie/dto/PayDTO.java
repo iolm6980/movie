@@ -5,7 +5,7 @@ import com.example.movie.entity.MovieInfo;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
-
+import java.util.*;
 @Data
 @Builder
 public class PayDTO {
@@ -15,4 +15,5 @@ public class PayDTO {
     private int totalPrice;
     private MemberDTO memberDTO;
     private MovieInfoDTO movieInfoDTO;
+    private List<Integer> seatList;
 }

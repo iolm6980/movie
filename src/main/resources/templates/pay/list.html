@@ -18,14 +18,14 @@
                     <div class="movie-list ps-sm-5 mb-xl-5" th:each="payDTO: ${payDTOList}">
                         <div class="d-flex">
                             <img th:src="|/upload/display?fileName=${payDTO.movieInfoDTO.movieDTO.imageURL()}|" style="width:25%; padding: 10px">
-                            <div class="movie-info p-4 w-100" style="position:relative; height;">
+                            <div class="movie-info p-4 w-60" style="position:relative; height;">
                                 <h3>[[${payDTO.movieInfoDTO.movieDTO.name}]]</h3>
                                 <h5>상영 장소: [[${payDTO.movieInfoDTO.place}]]</h5>
                                 <h5>예매 좌석: [[${payDTO.reserveSeat}]]</h5>
                                 <h5>상영 시간: [[${payDTO.movieInfoDTO.startTime}]] ~ [[${payDTO.movieInfoDTO.endTime}]]</h5>
                             </div>
+                            <div class="mt-auto"><button class="btn btn-danger" th:onclick="cancelPay([[${payDTO}]])">예매취소</button></div>
                         </div>
-                        <button class="btn btn-danger" th:onclick="cancelPay([[${payDTO}]])">예매취소</button>
                         <hr>
                     </div>
                 </div>

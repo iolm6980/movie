@@ -8,6 +8,7 @@ public interface MemberService {
     boolean memberRegister(MemberDTO memberDTO);
     MemberDTO getMember(String memberId);
     boolean checkMember(MemberDTO memberDTO);
+    void test() throws Exception;
 
     default Member DtoToEntity(MemberDTO memberDTO, PasswordEncoder passwordEncoder){
         Member member = Member.builder()
