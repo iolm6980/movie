@@ -211,7 +211,7 @@
                     seatList.push(num);
                 }
         });
-        console.log(seatList);
+
         var uuid = crypto.randomUUID();
         var IMP = window.IMP;
 
@@ -304,24 +304,27 @@
     }
 
     function modifyMovieInfo(){
-        var list = [];
-        var movieInfo = new Object();
-        movieInfo.mino = $('input[name=mino]').val();
-        movieInfo.date = $('input[name=date]').val();
-        movieInfo.place = $('input[name=place]').val();
-        movieInfo.seat = $('input[name=seat]').val();
-        movieInfo.startTime = $('input[name=startTime]').val();
-        movieInfo.movieDTO = {mno: $('input[name=mno]').val(), time: $('input[name=time]').val()};
-        list.push(movieInfo);
-        console.log(movieInfo);
+        var seatList = [];
+        $('input:checkbox[name=index]').each(function(idx){
+                if($(this).is(":checked")==true) seatList.push($(this).val());
+        });
+
         $.ajax({
-            url: '/movie/infoRegister',
+            url: '/movie/infoModify',
             method: 'post',
             contentType: 'application/json; charset=uft-8',
-            data:  JSON.stringify(list),
+            data:  JSON.stringify({
+                mino: $('input[name=mino]').val(),
+                date: $('input[name=date]').val(),
+                place: $('input[name=place]').val(),
+                seat: $('input[name=seat]').val(),
+                startTime: $('input[name=startTime]').val(),
+                movieDTO: {mno: $('input[name=mno]').val(), time: $('input[name=time]').val()},
+                movieInfoDTO: movieInfo,
+                seatList: seatList}
+                ),
             success: function(){
                 alert("수정 성공");
-                $(".seat-form").submit();
             }
         });
     }

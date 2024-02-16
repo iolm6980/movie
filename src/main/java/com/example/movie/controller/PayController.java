@@ -58,11 +58,10 @@ public class PayController {
             String[] seatArr = cancelDTO.getPayDTO().getReserveSeat().split(" ");
             List<Integer> seatList = new ArrayList<>();
             for(String seat: seatArr) seatList.add((seat.charAt(0) - 'A') * 12 + Integer.valueOf(seat.substring(1)));
-
             String token = payService.getToken(apikey, secretKey);
             payService.refundRequest(token, cancelDTO.getMerchant_uid(), cancelDTO.getReason());
-
-            return new ResponseEntity<>(seatList,HttpStatus.OK);
+            seatService.movieCancel(cancelDTO, seatList);
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
             String error = e.getMessage();
             return new ResponseEntity<>(error,HttpStatus.NOT_FOUND);

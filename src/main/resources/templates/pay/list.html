@@ -45,30 +45,20 @@
 <div th:replace="~{layout/layout :: script}"></div>
 <script th:inline="javascript">
     function cancelPay(payDTO){
-        console.log(payDTO);
-        jQuery.ajax({
-          "url": "/pay/cancel",
-          "type": "POST",
-          "contentType": "application/json",
-          "data": JSON.stringify({
-            "merchant_uid": payDTO.pid,
-            "cancel_request_amount": payDTO.totalPrice,
-            "reason": "예매 취소",
-            "payDTO": payDTO
-          }),
-          "dataType": "json",
-          success: function(seatList){
-            console.log(seatList);
-            $.ajax({
-                url: '/movie/seat?index='+ seatList + '&mino=' + payDTO.movieInfoDTO.mino,
-                method: 'post',
-                contentType: 'application/json; charset=utf-8',
-                success: function(){
-                    alert("취소 완료");
-                    location.replace("/movie/list");
-                }
-            });
-          }
+        $.ajax({
+            url: '/pay/cancel',
+            method: 'post',
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                merchant_uid: payDTO.pid,
+                cancel_request_amount: payDTO.totalPrice,
+                reason: "예매 취소",
+                payDTO: payDTO
+            }),
+            success: function(){
+                alert("취소 성공");
+                location.replace("/pay/list");
+            }
         });
     }
 

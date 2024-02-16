@@ -1,10 +1,13 @@
 package com.example.movie.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import jakarta.persistence.Entity;
+import lombok.*;
 
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 @Builder
-@Data
 public class CancelDTO {
     private String merchant_uid;
     private int cancel_request_amount;

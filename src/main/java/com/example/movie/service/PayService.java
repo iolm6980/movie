@@ -17,6 +17,7 @@ public interface PayService {
     void register(PayDTO payDTO);
     List<PayDTO> getPayList(String memberId);
     String getToken(String apiKey, String secretKey) throws IOException;
+    void deletePay(String pid);
     void refundRequest(String access_token, String merchant_uid, String reason) throws IOException;
     default Pay DtoToEntity(PayDTO payDTO){
         Member member = Member.builder().memberId(payDTO.getMemberDTO().getMemberId()).build();

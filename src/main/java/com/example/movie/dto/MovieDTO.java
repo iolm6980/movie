@@ -1,14 +1,16 @@
 package com.example.movie.dto;
 
+import jakarta.persistence.Entity;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-@Data
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @Builder
 public class MovieDTO {
     private Long mno;
@@ -21,5 +23,13 @@ public class MovieDTO {
 
     public String imageURL() throws UnsupportedEncodingException {
         return URLEncoder.encode(path, "UTF-8");
+    }
+
+    public void setImgName(String imgName){
+        this.imgName = imgName;
+    }
+
+    public void setPath(String path){
+        this.path = path;
     }
 }

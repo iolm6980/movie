@@ -5,6 +5,7 @@ import com.example.movie.dto.MovieInfoDTO;
 import com.example.movie.entity.MovieInfo;
 import com.example.movie.repository.MovieInfoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Log4j2
 @RequiredArgsConstructor
 public class MovieInfoServiceImpl implements MovieInfoService{
     private final MovieInfoRepository movieInfoRepository;
@@ -47,6 +49,7 @@ public class MovieInfoServiceImpl implements MovieInfoService{
 
     @Override
     public void seatUpdate(List<Integer> indexList, Long mino) {
+        log.info("test ...." +indexList);
         Optional<MovieInfo> movieInfo = movieInfoRepository.findById(mino);
         if(movieInfo.isPresent()) {
             MovieInfo result = movieInfo.get();
@@ -55,7 +58,7 @@ public class MovieInfoServiceImpl implements MovieInfoService{
                 if(sb.charAt(i-1) == '1') sb.setCharAt(i-1, '0');
                 else sb.setCharAt(i-1, '1');
             });
-            result.changeSeat(String.valueOf(sb));
+            result.setSeat(String.valueOf(sb));
             movieInfoRepository.save(result);
         }
     }
@@ -63,7 +66,6 @@ public class MovieInfoServiceImpl implements MovieInfoService{
     @Override
     public void infoRegister(List<MovieInfoDTO> movieInfoDTOList) {
         List<MovieInfo> list = movieInfoDTOList.stream().map(movieInfo -> dtoToEntity(movieInfo)).collect(Collectors.toList());
-        System.out.println("register.............." + list);
         movieInfoRepository.saveAll(list);
     }
 
@@ -82,7 +84,6 @@ public class MovieInfoServiceImpl implements MovieInfoService{
     @Override
     public void infoModify(MovieInfoDTO movieInfoDTO) {
         MovieInfo movieInfo = dtoToEntity(movieInfoDTO);
-        System.out.println("modify.............." + movieInfo);
         movieInfoRepository.save(movieInfo);
     }
 

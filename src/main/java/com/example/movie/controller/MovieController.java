@@ -2,25 +2,19 @@ package com.example.movie.controller;
 
 import com.example.movie.dto.MovieDTO;
 import com.example.movie.dto.MovieInfoDTO;
-import com.example.movie.dto.MovieInfoRequest;
 import com.example.movie.security.dto.AuthMemberDTO;
-import com.example.movie.security.util.JWTUtil;
 import com.example.movie.service.MovieInfoService;
 import com.example.movie.service.MovieService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.example.movie.service.SeatService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,7 +32,7 @@ import java.util.UUID;
 public class MovieController {
     private final MovieInfoService movieInfoService;
     private final MovieService movieService;
-
+    private final SeatService seatService;
     @Value("${com.example.upload.path}")
     private String uploadPath;
     @PostMapping("/test")
@@ -124,6 +118,14 @@ public class MovieController {
     public void updateGrade(Long totalGrade, Long mno){
         System.out.println("updateGrade........" + totalGrade + " mno: " + mno);
         movieService.updateGrade(totalGrade, mno);
+    }
+
+    @ResponseBody
+    @PostMapping("/infoModify")
+    public ResponseEntity<?> postInfoModify(@RequestBody MovieInfoDTO movieInfoDTO){
+        System.out.println("infoModify............" + movieInfoDTO);
+        seatService.infoModify(movieInfoDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

@@ -2,17 +2,16 @@ package com.example.movie.dto;
 
 import com.example.movie.entity.Member;
 import com.example.movie.entity.Movie;
+import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @Builder
 public class ReplyDTO {
     private Long rno;

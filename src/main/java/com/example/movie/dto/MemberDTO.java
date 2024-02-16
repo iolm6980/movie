@@ -1,9 +1,12 @@
 package com.example.movie.dto;
 
-import lombok.Builder;
-import lombok.Data;
+import jakarta.persistence.Entity;
+import lombok.*;
 
-@Data
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
 @Builder
 public class MemberDTO {
     private String memberId;

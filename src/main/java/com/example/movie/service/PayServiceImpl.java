@@ -115,4 +115,9 @@ public class PayServiceImpl implements PayService{
         System.out.println("Iamport 엑세스 토큰 발급 성공 : {}" + accessToken);
         return accessToken;
     }
+
+    @Override
+    public void deletePay(String pid) {
+        payRepository.deleteById(pid);
+    }
 }

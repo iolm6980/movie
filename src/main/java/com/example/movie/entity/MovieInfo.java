@@ -22,7 +22,7 @@ public class MovieInfo{
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
 
-    public void changeSeat(String seat){
+    public void setSeat(String seat){
         this.seat = seat;
     }
 }
