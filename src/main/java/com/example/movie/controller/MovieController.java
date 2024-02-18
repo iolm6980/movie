@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +30,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/movie")
 @RequiredArgsConstructor
+@Transactional(rollbackFor = Exception.class)
 public class MovieController {
     private final MovieInfoService movieInfoService;
     private final MovieService movieService;
@@ -84,7 +86,7 @@ public class MovieController {
     }
 
     @PostMapping("/movieRegister")
-    public void postMovieRegister(@RequestParam MultipartFile file, MovieDTO movieDTO) throws IOException {
+    public String postMovieRegister(@RequestParam MultipartFile file, MovieDTO movieDTO) throws IOException {
         String originalName = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();
         String saveName = uploadPath + File.separator + uuid + "_" + originalName;
@@ -96,6 +98,7 @@ public class MovieController {
         movieDTO.setPath(savePath.toString());
         System.out.println("movieRegister.........." + movieDTO);
         movieService.movieRegister(movieDTO);
+        return "redirect:/movie/movieRegister";
     }
 
     @GetMapping("/infoRegister")

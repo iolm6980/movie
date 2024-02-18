@@ -10,6 +10,7 @@ import java.util.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 public class PayDTO {
 

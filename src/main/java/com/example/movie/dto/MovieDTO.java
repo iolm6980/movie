@@ -11,6 +11,7 @@ import java.net.URLEncoder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Builder
 public class MovieDTO {
     private Long mno;
@@ -25,11 +26,4 @@ public class MovieDTO {
         return URLEncoder.encode(path, "UTF-8");
     }
 
-    public void setImgName(String imgName){
-        this.imgName = imgName;
-    }
-
-    public void setPath(String path){
-        this.path = path;
-    }
 }
