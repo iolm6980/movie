@@ -53,6 +53,11 @@ tasks.named('bootBuildImage') {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+tasks print(){
+	doLast{
+		println "git push complete"
+	}
+}
 repositories {
 	maven { url 'https://jitpack.io' }
 }
