@@ -31,7 +31,7 @@ public class MemberRepositoryTests {
                 .build();
         memberRepository.save(admin);
 
-        IntStream.rangeClosed(1, 10).forEach(i ->{
+        IntStream.rangeClosed(1, 5).forEach(i ->{
             Member member = Member.builder()
                     .memberId("test" +i)
                     .password(passwordEncoder.encode("1111"))

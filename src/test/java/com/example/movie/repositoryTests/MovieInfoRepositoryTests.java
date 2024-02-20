@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 @SpringBootTest
@@ -23,19 +24,25 @@ public class MovieInfoRepositoryTests {
         Date date = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        String today = dateFormat.format(date);
+
         String seat = "0".repeat(72);
-        IntStream.rangeClosed(1, 10).forEach(i ->{
-            Movie movie = Movie.builder().mno(44L).build();
-            MovieInfo movieInfo = MovieInfo.builder()
-                    .movie(movie)
-                    .place( i + "관")
-                    .seat(seat)
-                    .date(today)
-                    .startTime(timeFormat.format(date))
-                    .build();
-            movieInfoRepository.save(movieInfo);
+        Random rand = new Random();
+        IntStream.rangeClosed(0,4).forEach(j -> {
+            String today = dateFormat.format(date);
+            IntStream.rangeClosed(1, rand.nextInt(5)+2).forEach(i ->{
+                Movie movie = Movie.builder().mno(Long.valueOf(rand.nextInt(9)+1)).build();
+                MovieInfo movieInfo = MovieInfo.builder()
+                        .movie(movie)
+                        .place( (rand.nextInt(7)+1) + "관")
+                        .seat(seat)
+                        .date(today)
+                        .startTime(timeFormat.format(date))
+                        .build();
+                movieInfoRepository.save(movieInfo);
+            });
+            date.setDate(date.getDate()+1);
         });
+
     }
 
     @Test

@@ -26,12 +26,13 @@ public class ReplyRepositoryTests {
 
     @Test
     public void ReplyInsertTest(){
-        IntStream.rangeClosed(1, 50).forEach(i ->{
-            Movie movie = Movie.builder().mno(42L).build();
+        Random rand = new Random();
+        IntStream.rangeClosed(1, 100).forEach(i ->{
+            Movie movie = Movie.builder().mno(Long.valueOf(rand.nextInt(9)+1)).build();
             Member member = Member.builder().memberId("test1").build();
             Reply reply = Reply.builder()
                     .movie(movie)
-                    .grade((long) (i/2))
+                    .grade(Long.valueOf(rand.nextInt(100)))
                     .content("reply" + i)
                     .member(member)
                     .build();

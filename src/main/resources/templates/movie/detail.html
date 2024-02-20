@@ -282,7 +282,7 @@
             contentType: 'application/json; charset-utf-8',
             data: JSON.stringify(data),
             success: function(totalGrade){
-                updateGrade(totalGrade);
+                alert("작성 완료");
                 replyModal.hide();
             },
         });
@@ -291,18 +291,6 @@
     function test(){
         console.log("test");
     }
-
-    function updateGrade(totalGrade){
-        console.log();
-        $.ajax({
-            url: '/movie/updateGrade?totalGrade=' + totalGrade + '&mno=' + [[${movieInfoList[0].movieDTO.mno}]],
-            method: 'post',
-            success: function(){
-                alert("등록 완료");
-            },
-        });
-    }
-
     function modifyMovieInfo(){
         var seatList = [];
         $('input:checkbox[name=index]').each(function(idx){

@@ -2,6 +2,7 @@ package com.example.movie.controller;
 
 import com.example.movie.dto.PageResultDTO;
 import com.example.movie.dto.ReplyDTO;
+import com.example.movie.service.GradeService;
 import com.example.movie.service.ReplyService;
 import com.nimbusds.jose.Header;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ import java.net.URI;
 @RequiredArgsConstructor
 public class ReplyController {
     private final ReplyService replyService;
-
+    private final GradeService gradeService;
     @GetMapping(value = "/{mno}" ,produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> replyList(@PathVariable Long mno, @RequestParam(defaultValue = "0") int page){
 
@@ -31,9 +32,8 @@ public class ReplyController {
     @PostMapping("/register")
     public ResponseEntity<?> replyRegister(@RequestBody ReplyDTO replyDTO){
         System.out.println("reply........" + replyDTO);
-        replyService.ReplyRegister(replyDTO);
-        Long totalGrade = replyService.getTotalGrade(replyDTO.getMovieDTO().getMno());
-        return new ResponseEntity<>(totalGrade, HttpStatus.OK);
+        gradeService.updateMovieGrade(replyDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
