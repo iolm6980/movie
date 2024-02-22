@@ -20,7 +20,7 @@ public interface ReplyService {
     }
 
     default Reply DtoToEntity(ReplyDTO replyDTO){
-        Member member = Member.builder().memberId(replyDTO.getMemberId()).build();
+        Member member = Member.builder().memberId(replyDTO.getMemberDTO().getMemberId()).build();
         Movie movie = Movie.builder().mno(replyDTO.getMovieDTO().getMno()).build();
         Reply reply = Reply.builder()
                 .rno(replyDTO.getRno())

@@ -23,7 +23,11 @@ public class ReplyServiceImpl implements ReplyService{
         Page<Object[]> replyPage = replyRepository.getReplyList(mno, pageable);
 
         Function<Object[], ReplyDTO> fn = reply ->
-                ReplyDTO.builder().rno((Long) reply[0]).content((String) reply[1]).grade((Long) reply[2]).memberId((String) reply[3]).build();
+                ReplyDTO.builder()
+                        .rno((Long) reply[0])
+                        .content((String) reply[1])
+                        .grade((Long) reply[2])
+                        .memberId((String) reply[3]).build();
 
         return new PageResultDTO<>(replyPage, fn);
     }

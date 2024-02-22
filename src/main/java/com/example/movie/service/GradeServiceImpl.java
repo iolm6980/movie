@@ -10,13 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 public class GradeServiceImpl implements GradeService {
-    private final ReplyRepository replyRepository;
-    private final MovieRepository movieRepository;
+    private final ReplyService replyService;
+    private final MovieService movieService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateMovieGrade(ReplyDTO replyDTO) {
-        Long totalGrade = replyRepository.getTotalGrade(replyDTO.getMovieDTO().getMno());
-        movieRepository.updateGrade(replyDTO.getMovieDTO().getMno(), totalGrade);
+        Long totalGrade = replyService.getTotalGrade(replyDTO.getMovieDTO().getMno());
+        replyService.ReplyRegister(replyDTO);
+        movieService.updateGrade(replyDTO.getMovieDTO().getMno(), totalGrade);
     }
 }

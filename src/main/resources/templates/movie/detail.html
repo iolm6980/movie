@@ -21,8 +21,8 @@
                         </div>
                         <div class="col-md-5" id="product-information">
                             <h3 class="display-6 fw-bolder mb-5">[[${movieInfoList[0].movieDTO.name}]]</h3>
-                            <h5 class="mb-5">[[${movieInfoList[0].movieDTO.time}]]분</h5>
-                            <h4 class="mb-5">[[${movieInfoList[0].movieDTO.summary}]]</h4>
+                            <h4 class="mb-5">상영시간: [[${movieInfoList[0].movieDTO.time}]]분</h4>
+                            <h5 class="mb-5">[[${movieInfoList[0].movieDTO.summary}]]</h5>
                             <div class="d-flex">
                                 <button class="btn btn-outline-secondary" th:each="movieInfo:${movieInfoList}" th:onclick="showSeat([[${movieInfo}]])">
                                     <p>[[${movieInfo.startTime}]] ~ [[${movieInfo.endTime}]]</p>
@@ -77,7 +77,7 @@
             <div class="modal-body reply-modal-body py-sm-5">
                     <input type="text" name="content" style="width:100%; height:200px;">
                     <input type="hidden" name="movieDTO.mno" th:value="${movieInfoList[0].movieDTO.mno}">
-                    <input type="hidden" name="memberId" th:value="${auth.username}">
+                    <input type="hidden" name="memberDTO.memberId" th:value="${auth.username}">
             </div>
             <div class="modal-footer">
                 <span class="star-input">
@@ -271,7 +271,7 @@
         var data = {
             content: $("input[name='content']").val(),
             movieDTO: {mno: $("input[name='movieDTO.mno']").val()},
-            memberId: $("input[name='memberId']").val(),
+            memberDTO: {memberId: $("input[name='memberDTO.memberId']").val()},
             grade: $("input[name='grade']").val()
         }
         console.log(data);
