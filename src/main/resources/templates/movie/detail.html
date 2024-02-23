@@ -206,9 +206,9 @@
         var cnt = $('input:checkbox[name=index]:checked').length;
         $('input:checkbox[name=index]').each(function(idx){
                 if($(this).is(":checked")==true){
-                    var num = $(this).val();
-                    paySeat += word[parseInt(num/12)] + "" + (num%12) + " ";
-                    seatList.push(num);
+                    var num = parseInt($(this).val()-1);
+                    paySeat += word[parseInt(num/12)] + "" + parseInt(num%12+1) + " ";
+                    seatList.push(num+1);
                 }
         });
 
