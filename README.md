@@ -26,7 +26,7 @@ CI/CD 구축 및 AWS 연습을 위한 영화관 프로젝트
 # ERD
 ![movie ERD](https://github.com/iolm6980/movie/assets/133768355/72363f71-e772-4c13-a57e-caf3db3a2bed)
 
-# 구현 결과  
+# 현재 구현 결과  
 
 <details>
 <summary>영화 리스트</summary>
