@@ -17,7 +17,12 @@ CI/CD 구축 및 AWS 연습을 위한 영화관 프로젝트
 * 댓글 작성 기능
 * 로그인
 
-  
+# 요구 사항 명세서
+![요구사항 명세서](https://github.com/iolm6980/movie/assets/133768355/1ed6b8b0-f57d-42e0-a6ed-42ce1bc85a1c)
+
+# API 명세서
+![api 명세서](https://github.com/iolm6980/movie/assets/133768355/ab925c7a-af93-4a24-a53c-270cbef89222)
+
 # ERD
 ![movie ERD](https://github.com/iolm6980/movie/assets/133768355/72363f71-e772-4c13-a57e-caf3db3a2bed)
 
