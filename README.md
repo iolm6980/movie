@@ -28,17 +28,33 @@ CI/CD 구축 및 AWS 연습을 위한 영화관 프로젝트
 
 # 구현 결과  
 
-## 영화 리스트
+<details>
+<summary>영화 리스트</summary>
+
 https://github.com/iolm6980/movie/assets/133768355/081a03a5-ab86-4e6a-9e29-d8a4bf1ef83f
-  
-## 회원가입 및 로그인
+</details>
+
+<details>
+<summary>회원가입 및 로그인</summary>
+
 https://github.com/iolm6980/movie/assets/133768355/9f679dd7-b23e-4990-8f0a-882a3c6b718d
+</details>
 
-## 댓글 CRUD
+<details>
+<summary>댓글 CRUD</summary>
+
 https://github.com/iolm6980/movie/assets/133768355/893c4fe6-3950-4fe3-838a-135fe3439a78
+</details>
 
-## 영화 예매 및 취소
+<details>
+<summary>영화 예매 및 취소</summary>
+
 https://github.com/iolm6980/movie/assets/133768355/c41acfca-83b4-4a5e-88e6-85ee8fbe6c51
+</details>
 
-## 영화 CRUD
+<details>
+<summary>영화 CRUD</summary>
+
 https://github.com/iolm6980/movie/assets/133768355/5fb62f64-7e3a-4f8c-bc3a-3e42aca194bb
+</details>
+
