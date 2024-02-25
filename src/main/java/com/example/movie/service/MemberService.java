@@ -9,20 +9,20 @@ public interface MemberService {
     MemberDTO getMember(String memberId);
     boolean checkMember(MemberDTO memberDTO);
 
-    default Member DtoToEntity(MemberDTO memberDTO, PasswordEncoder passwordEncoder){
-        Member member = Member.builder()
-                .memberId(memberDTO.getMemberId())
-                .password(passwordEncoder.encode(memberDTO.getPassword()))
-                .role("USER")
-                .build();
-        return member;
-    }
-
-    default MemberDTO entityToDTO(Member member){
-        MemberDTO memberDTO = MemberDTO.builder()
-                .memberId(member.getMemberId())
-                .role(member.getRole())
-                .build();
-        return memberDTO;
-    }
+//    default Member DtoToEntity(MemberDTO memberDTO, PasswordEncoder passwordEncoder){
+//        Member member = Member.builder()
+//                .memberId(memberDTO.getMemberId())
+//                .password(passwordEncoder.encode(memberDTO.getPassword()))
+//                .role("USER")
+//                .build();
+//        return member;
+//    }
+//
+//    default MemberDTO entityToDTO(Member member){
+//        MemberDTO memberDTO = MemberDTO.builder()
+//                .memberId(member.getMemberId())
+//                .role(member.getRole())
+//                .build();
+//        return memberDTO;
+//    }
 }

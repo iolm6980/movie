@@ -16,8 +16,8 @@ public class GradeServiceImpl implements GradeService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateMovieGrade(ReplyDTO replyDTO) {
-        Long totalGrade = replyService.getTotalGrade(replyDTO.getMovieDTO().getMno());
         replyService.ReplyRegister(replyDTO);
+        Long totalGrade = replyService.getTotalGrade(replyDTO.getMovieDTO().getMno());
         movieService.updateGrade(replyDTO.getMovieDTO().getMno(), totalGrade);
     }
 }

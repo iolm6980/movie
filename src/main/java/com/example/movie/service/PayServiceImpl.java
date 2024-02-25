@@ -24,9 +24,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class PayServiceImpl implements PayService{
     private final PayRepository payRepository;
+    private final ConvertEnAndDto convertEnAndDto;
     @Override
     public void register(PayDTO payDTO) {
-        payRepository.save(DtoToEntity(payDTO));
+        payRepository.save(convertEnAndDto.DtoToEntity(payDTO));
     }
 
     @Override
@@ -34,7 +35,7 @@ public class PayServiceImpl implements PayService{
         List<PayDTO> payDTOList = payRepository.getPayList(memberId).stream().map(object ->
                 {
                     try {
-                        return entityToDto((Pay)object[0], (Member)object[1], (MovieInfo) object[2], (Movie) object[3]);
+                        return convertEnAndDto.entityToDto((Pay)object[0], (Member)object[1], (MovieInfo) object[2], (Movie) object[3]);
                     } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }

@@ -11,8 +11,4 @@ public class MemberServiceTests {
     @Autowired
     private MemberService memberService;
 
-    @Test
-    public void memberResister() throws Exception {
-        memberService.test();
-    }
 }

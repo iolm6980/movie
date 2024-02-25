@@ -67,7 +67,6 @@ public class MovieInfoRepositoryTests {
     }
     @Test
     public void test(){
-
     }
 
 }

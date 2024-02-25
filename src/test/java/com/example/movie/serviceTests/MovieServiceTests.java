@@ -22,4 +22,9 @@ public class MovieServiceTests {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String today = dateFormat.format(date);
     }
+
+    @Test
+    public void updateGrade(){
+        movieService.updateGrade(29L, 100L);
+    }
 }

@@ -20,13 +20,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MovieInfoServiceImpl implements MovieInfoService{
     private final MovieInfoRepository movieInfoRepository;
-
+    private final ConvertEnAndDto convertEnAndDto;
     @Override
     public List<MovieInfoDTO> getMovieList(String date) {
         List<MovieInfoDTO> dtoList = movieInfoRepository.findByDate(date).stream()
                 .map(movie -> {
                     try {
-                        return entityToDTO(movie);
+                        return convertEnAndDto.entityToDTO(movie);
                     } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }
@@ -39,7 +39,7 @@ public class MovieInfoServiceImpl implements MovieInfoService{
         List<MovieInfoDTO> dtoList = movieInfoRepository.findByDateAndMovieMno(date, mno).stream()
                 .map(movie -> {
                     try {
-                        return entityToDTO(movie);
+                        return convertEnAndDto.entityToDTO(movie);
                     } catch (ParseException e) {
                         throw new RuntimeException(e);
                     }
@@ -65,7 +65,7 @@ public class MovieInfoServiceImpl implements MovieInfoService{
 
     @Override
     public void infoRegister(List<MovieInfoDTO> movieInfoDTOList) {
-        List<MovieInfo> list = movieInfoDTOList.stream().map(movieInfo -> dtoToEntity(movieInfo)).collect(Collectors.toList());
+        List<MovieInfo> list = movieInfoDTOList.stream().map(movieInfo -> convertEnAndDto.dtoToEntity(movieInfo)).collect(Collectors.toList());
         movieInfoRepository.saveAll(list);
     }
 
@@ -73,7 +73,7 @@ public class MovieInfoServiceImpl implements MovieInfoService{
     public List<MovieInfoDTO> getMovieInfoList(Long mno) {
         List<MovieInfoDTO> movieInfoDTOList = movieInfoRepository.findByMovieMno(mno).stream().map(movieInfo -> {
             try {
-                return entityToDTO(movieInfo);
+                return convertEnAndDto.entityToDTO(movieInfo);
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
@@ -83,7 +83,7 @@ public class MovieInfoServiceImpl implements MovieInfoService{
 
     @Override
     public void infoModify(MovieInfoDTO movieInfoDTO) {
-        MovieInfo movieInfo = dtoToEntity(movieInfoDTO);
+        MovieInfo movieInfo = convertEnAndDto.dtoToEntity(movieInfoDTO);
         movieInfoRepository.save(movieInfo);
     }
 

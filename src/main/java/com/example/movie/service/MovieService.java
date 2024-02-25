@@ -9,29 +9,29 @@ public interface MovieService {
     void movieRegister(MovieDTO movieDTO);
     List<MovieDTO> getMovieList();
     void updateGrade(Long totalGrade, Long mno);
-    default Movie dtoToEntity(MovieDTO movieDTO){
-        Movie movie = Movie.builder()
-                .mno(movieDTO.getMno())
-                .name(movieDTO.getName())
-                .summary(movieDTO.getSummary())
-                .time(movieDTO.getTime())
-                .imgName(movieDTO.getImgName())
-                .path(movieDTO.getPath())
-                .totalGrade(movieDTO.getTotalGrade())
-                .build();
-        return movie;
-    }
-
-    default MovieDTO entityToDTO(Movie movie){
-        MovieDTO movieDTO = MovieDTO.builder()
-                .mno(movie.getMno())
-                .imgName(movie.getImgName())
-                .time(movie.getTime())
-                .name(movie.getName())
-                .summary(movie.getSummary())
-                .totalGrade(movie.getTotalGrade())
-                .path(movie.getPath())
-                .build();
-        return movieDTO;
-    }
+//    default Movie dtoToEntity(MovieDTO movieDTO){
+//        Movie movie = Movie.builder()
+//                .mno(movieDTO.getMno())
+//                .name(movieDTO.getName())
+//                .summary(movieDTO.getSummary())
+//                .time(movieDTO.getTime())
+//                .imgName(movieDTO.getImgName())
+//                .path(movieDTO.getPath())
+//                .totalGrade(movieDTO.getTotalGrade())
+//                .build();
+//        return movie;
+//    }
+//
+//    default MovieDTO entityToDTO(Movie movie){
+//        MovieDTO movieDTO = MovieDTO.builder()
+//                .mno(movie.getMno())
+//                .imgName(movie.getImgName())
+//                .time(movie.getTime())
+//                .name(movie.getName())
+//                .summary(movie.getSummary())
+//                .totalGrade(movie.getTotalGrade())
+//                .path(movie.getPath())
+//                .build();
+//        return movieDTO;
+//    }
 }

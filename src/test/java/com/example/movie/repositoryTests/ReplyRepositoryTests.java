@@ -27,9 +27,9 @@ public class ReplyRepositoryTests {
     @Test
     public void ReplyInsertTest(){
         Random rand = new Random();
-        IntStream.rangeClosed(1, 100).forEach(i ->{
+        IntStream.rangeClosed(1, 2).forEach(i ->{
             Movie movie = Movie.builder().mno(Long.valueOf(rand.nextInt(9)+1)).build();
-            Member member = Member.builder().memberId("test1").build();
+            Member member = Member.builder().memberId("test2").build();
             Reply reply = Reply.builder()
                     .movie(movie)
                     .grade(Long.valueOf(rand.nextInt(100)))

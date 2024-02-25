@@ -39,6 +39,6 @@ public class MovieRepositoryTests {
     }
     @Test
     public void updateGrade(){
-        movieRepository.updateGrade(42L, 50L);
+        movieRepository.updateGrade(29L, 0L);
     }
 }

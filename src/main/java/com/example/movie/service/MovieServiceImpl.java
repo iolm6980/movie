@@ -13,20 +13,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieRepository;
-
+    private final ConvertEnAndDto convertEnAndDto;
     @Override
     public void movieRegister(MovieDTO movieDTO) {
-        movieRepository.save(dtoToEntity(movieDTO));
+        movieRepository.save(convertEnAndDto.dtoToEntity(movieDTO));
     }
 
     @Override
     public List<MovieDTO> getMovieList() {
-        List<MovieDTO> list = movieRepository.findAll().stream().map(movie -> entityToDTO(movie)).collect(Collectors.toList());
+        List<MovieDTO> list = movieRepository.findAll().stream().map(movie -> convertEnAndDto.entityToDTO(movie)).collect(Collectors.toList());
         return list;
     }
 
     @Override
-    public void updateGrade(Long totalGrade, Long mno) {
+    public void updateGrade(Long mno, Long totalGrade) {
         movieRepository.updateGrade(mno, totalGrade);
     }
 }

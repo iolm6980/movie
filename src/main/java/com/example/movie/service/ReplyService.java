@@ -10,25 +10,25 @@ public interface ReplyService {
     PageResultDTO<ReplyDTO, Object[]> getReplyList(Long mno, int page);
     void ReplyRegister(ReplyDTO replyDTO);
     Long getTotalGrade(Long mno);
-    default ReplyDTO entityToDTO(Reply reply){
-        ReplyDTO replyDTO = ReplyDTO.builder()
-                .rno(reply.getRno())
-                .content(reply.getContent())
-                .grade(reply.getGrade())
-                .build();
-        return replyDTO;
-    }
-
-    default Reply DtoToEntity(ReplyDTO replyDTO){
-        Member member = Member.builder().memberId(replyDTO.getMemberDTO().getMemberId()).build();
-        Movie movie = Movie.builder().mno(replyDTO.getMovieDTO().getMno()).build();
-        Reply reply = Reply.builder()
-                .rno(replyDTO.getRno())
-                .content(replyDTO.getContent())
-                .grade(replyDTO.getGrade())
-                .member(member)
-                .movie(movie)
-                .build();
-        return reply;
-    }
+//    default ReplyDTO entityToDTO(Reply reply){
+//        ReplyDTO replyDTO = ReplyDTO.builder()
+//                .rno(reply.getRno())
+//                .content(reply.getContent())
+//                .grade(reply.getGrade())
+//                .build();
+//        return replyDTO;
+//    }
+//
+//    default Reply DtoToEntity(ReplyDTO replyDTO){
+//        Member member = Member.builder().memberId(replyDTO.getMemberDTO().getMemberId()).build();
+//        Movie movie = Movie.builder().mno(replyDTO.getMovieDTO().getMno()).build();
+//        Reply reply = Reply.builder()
+//                .rno(replyDTO.getRno())
+//                .content(replyDTO.getContent())
+//                .grade(replyDTO.getGrade())
+//                .member(member)
+//                .movie(movie)
+//                .build();
+//        return reply;
+//    }
 }
