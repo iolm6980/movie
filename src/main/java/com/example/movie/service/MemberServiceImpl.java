@@ -39,15 +39,4 @@ public class MemberServiceImpl implements MemberService{
         return false;
     }
 
-    @Override
-    public void test() throws Exception {
-        int a = 1;
-        Member member = Member.builder().memberId("17").build();
-        memberRepository.save(member);
-        if(a == 1) throw new Exception();
-        Member member1 = Member.builder().memberId("18").build();
-        memberRepository.save(member1);
-    }
-
-
 }

@@ -48,7 +48,8 @@ public class MovieController {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         if(date == null) {
             Date today = new Date();
-            date = dateFormat.format(today);
+            //date = dateFormat.format(today);
+            date = "2024-02-19";
         }else {
             Date dat = dateFormat.parse(date);
             date = dateFormat.format(dat);
@@ -129,6 +130,17 @@ public class MovieController {
         System.out.println("infoModify............" + movieInfoDTO);
         seatService.infoModify(movieInfoDTO);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PutMapping("/testPut")
+    public void testPut(MovieDTO movieDTO){
+        System.out.println("테스트2............");
+        movieService.movieRegister(movieDTO);
+    }
+    @PostMapping("/testPost")
+    public void testPost(MovieDTO movieDTO){
+        System.out.println("테스트1............");
+        movieService.movieRegister(movieDTO);
     }
 
 }
