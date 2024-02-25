@@ -55,7 +55,7 @@ https://github.com/iolm6980/movie/assets/133768355/c41acfca-83b4-4a5e-88e6-85ee8
 <details>
 <summary>영화 CRUD</summary>
 
-https://github.com/iolm6980/movie/assets/133768355/5fb62f64-7e3a-4f8c-bc3a-3e42aca194bb
+https://github.com/iolm6980/movie/assets/133768355/1e3db8fb-88c0-4a13-9c12-b1c3fd4ffe9f
 </details>
 
 # 앞으로의 계획
