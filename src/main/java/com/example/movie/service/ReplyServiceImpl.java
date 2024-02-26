@@ -14,9 +14,9 @@ import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
-public class ReplyServiceImpl implements ReplyService{
+public class ReplyServiceImpl implements ReplyService, ConvertService{
     private final ReplyRepository replyRepository;
-    private final ConvertEnAndDto convertEnAndDto;
+    //private final ConvertEnAndDto convertEnAndDto;
     @Override
     public PageResultDTO<ReplyDTO, Object[]> getReplyList(Long mno, int page) {
         Pageable pageable = PageRequest.of(page, 6);
@@ -34,7 +34,7 @@ public class ReplyServiceImpl implements ReplyService{
 
     @Override
     public void ReplyRegister(ReplyDTO replyDTO) {
-        replyRepository.save(convertEnAndDto.DtoToEntity(replyDTO));
+        replyRepository.save(DtoToEntity(replyDTO));
     }
 
     @Override

@@ -11,17 +11,17 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class MovieServiceImpl implements MovieService {
+public class MovieServiceImpl implements MovieService ,ConvertService{
     private final MovieRepository movieRepository;
-    private final ConvertEnAndDto convertEnAndDto;
+    //private final ConvertEnAndDto convertEnAndDto;
     @Override
     public void movieRegister(MovieDTO movieDTO) {
-        movieRepository.save(convertEnAndDto.dtoToEntity(movieDTO));
+        movieRepository.save(dtoToEntity(movieDTO));
     }
 
     @Override
     public List<MovieDTO> getMovieList() {
-        List<MovieDTO> list = movieRepository.findAll().stream().map(movie -> convertEnAndDto.entityToDTO(movie)).collect(Collectors.toList());
+        List<MovieDTO> list = movieRepository.findAll().stream().map(movie -> entityToDTO(movie)).collect(Collectors.toList());
         return list;
     }
 

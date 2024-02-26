@@ -41,7 +41,6 @@ public class MemberController {
         System.out.println("login..............");
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
-
     }
 
     @ResponseBody

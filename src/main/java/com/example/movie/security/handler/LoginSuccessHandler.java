@@ -30,6 +30,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //response.sendRedirect("/member/login");
+        response.sendRedirect("/movie/list");
     }
 }

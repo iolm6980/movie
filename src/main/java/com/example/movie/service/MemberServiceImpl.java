@@ -13,22 +13,22 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService, ConvertService{
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final ConvertEnAndDto convertEnAndDto;
+    //private final ConvertEnAndDto convertEnAndDto;
 
     @Override
     public boolean memberRegister(MemberDTO memberDTO) {
         if(memberRepository.findByMemberId(memberDTO.getMemberId()).isPresent()) return false;
-        memberRepository.save(convertEnAndDto.DtoToEntity(memberDTO, passwordEncoder));
+        memberRepository.save(DtoToEntity(memberDTO, passwordEncoder));
         return true;
     }
 
     @Override
     public MemberDTO getMember(String memberId) {
         Optional<Member> optionalMember = memberRepository.findByMemberId(memberId);
-        MemberDTO member = convertEnAndDto.entityToDTO(optionalMember.get());
+        MemberDTO member = entityToDTO(optionalMember.get());
         return member;
     }
 

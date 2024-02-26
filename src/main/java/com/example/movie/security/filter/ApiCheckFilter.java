@@ -58,7 +58,7 @@ public class ApiCheckFilter extends OncePerRequestFilter {
 
     private boolean checkAuthHeader(HttpServletRequest request){
         boolean checkResult = false;
-        String authHeader = request.getHeader("Cookie");
+        String authHeader = request.getHeader("Authorization");
         System.out.println(authHeader);
         if(StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")){
             log.info("Authorization exist: " + authHeader);

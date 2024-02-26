@@ -42,7 +42,6 @@ public class SecurityConfig {
     @Bean
     public ApiCheckFilter apiCheckFilter(){ return new ApiCheckFilter("", jwtUtil());}
 
-
     @Bean
     public JWTUtil jwtUtil() {
         return new JWTUtil();
@@ -60,26 +59,26 @@ public class SecurityConfig {
                                 .requestMatchers("/movie/movieRegister").hasRole("ADMIN")
                                 .requestMatchers("/movie/infoRegister").hasRole("ADMIN")
                                 .requestMatchers("/movie/**").hasAnyRole("USER")
-                                .requestMatchers("/reply/**").hasAnyRole("USER")
+                                .requestMatchers("/reply/**").permitAll()
                                 .requestMatchers("/pay/**").hasAnyRole("USER")
                                 .requestMatchers("/logout").hasAnyRole("USER")
                                 .requestMatchers("/pay/**").hasAnyRole("USER")
                                 .requestMatchers("/member/**").permitAll()
                                 .requestMatchers("/upload/**").permitAll()
                                 .requestMatchers("/login").permitAll()
+                                .requestMatchers("/api/login").permitAll()
                                 .requestMatchers("/css/**","/js/**", "/img/**").permitAll()
                                 )
                 .csrf((csrf) -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(login -> login.loginPage("/member/login")
                         .usernameParameter("username")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/movie/list")
-                        //.successHandler(loginSuccessHandler())
                         .failureHandler(movieFailHandler).permitAll())
                 .logout(Customizer.withDefaults())
-                .addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class);
-                //.addFilterBefore(apiLoginFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class)
-                //.addFilterBefore(new JwtTokenFilter(movieUserDetailService, secretKey), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(apiCheckFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(apiLoginFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -89,5 +88,4 @@ public class SecurityConfig {
         apiLoginFilter.setAuthenticationManager(authenticationManager);
         return apiLoginFilter;
     }
-    public LoginSuccessHandler loginSuccessHandler(){ return new LoginSuccessHandler(jwtUtil()); }
 }
