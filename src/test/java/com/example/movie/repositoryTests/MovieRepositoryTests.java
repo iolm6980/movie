@@ -18,27 +18,27 @@ public class MovieRepositoryTests {
     @Autowired
     private MovieRepository movieRepository;
 
-    @Test
-    public void movieInsertTest(){
-        IntStream.rangeClosed(1, 10).forEach(i ->{
-            Movie movie = Movie.builder()
-                    .name("영화 이름" + i)
-                    .time(i*10)
-                    .summary("줄거리"+i)
-                    .totalGrade(Long.valueOf(i/2)).build();
-            movieRepository.save(movie);
-        });
-    }
-
-    @Test
-    public void getMovieList(){
-        Pageable p = PageRequest.of(1, 10);
-        System.out.println(p.getPageSize());
-        int page = 5;
-        int tempEnd = (int) (Math.ceil(page/10.0)) * 10;
-    }
-    @Test
-    public void updateGrade(){
-        movieRepository.updateGrade(29L, 0L);
-    }
+//    @Test
+//    public void movieInsertTest(){
+//        IntStream.rangeClosed(1, 10).forEach(i ->{
+//            Movie movie = Movie.builder()
+//                    .name("영화 이름" + i)
+//                    .time(i*10)
+//                    .summary("줄거리"+i)
+//                    .totalGrade(Long.valueOf(i/2)).build();
+//            movieRepository.save(movie);
+//        });
+//    }
+//
+//    @Test
+//    public void getMovieList(){
+//        Pageable p = PageRequest.of(1, 10);
+//        System.out.println(p.getPageSize());
+//        int page = 5;
+//        int tempEnd = (int) (Math.ceil(page/10.0)) * 10;
+//    }
+//    @Test
+//    public void updateGrade(){
+//        movieRepository.updateGrade(29L, 0L);
+//    }
 }

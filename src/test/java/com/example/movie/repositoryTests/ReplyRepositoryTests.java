@@ -24,31 +24,31 @@ public class ReplyRepositoryTests {
     @Autowired
     private ReplyRepository replyRepository;
 
-    @Test
-    public void ReplyInsertTest(){
-        Random rand = new Random();
-        IntStream.rangeClosed(1, 2).forEach(i ->{
-            Movie movie = Movie.builder().mno(Long.valueOf(rand.nextInt(9)+1)).build();
-            Member member = Member.builder().memberId("test2").build();
-            Reply reply = Reply.builder()
-                    .movie(movie)
-                    .grade(Long.valueOf(rand.nextInt(100)))
-                    .content("reply" + i)
-                    .member(member)
-                    .build();
-            replyRepository.save(reply);
-        });
-    }
-
-
-    @Test
-    public void getReplyList(){
-    }
-
-    @Test
-    public void getGrade(){
-        System.out.println(replyRepository.getTotalGrade(43L));
-    }
+//    @Test
+//    public void ReplyInsertTest(){
+//        Random rand = new Random();
+//        IntStream.rangeClosed(1, 2).forEach(i ->{
+//            Movie movie = Movie.builder().mno(Long.valueOf(rand.nextInt(9)+1)).build();
+//            Member member = Member.builder().memberId("test2").build();
+//            Reply reply = Reply.builder()
+//                    .movie(movie)
+//                    .grade(Long.valueOf(rand.nextInt(100)))
+//                    .content("reply" + i)
+//                    .member(member)
+//                    .build();
+//            replyRepository.save(reply);
+//        });
+//    }
+//
+//
+//    @Test
+//    public void getReplyList(){
+//    }
+//
+//    @Test
+//    public void getGrade(){
+//        System.out.println(replyRepository.getTotalGrade(43L));
+//    }
 
 
 

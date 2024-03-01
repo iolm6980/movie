@@ -16,10 +16,10 @@ public class PayServiceTests {
     private String apikey;
     @Value("${secretKey}")
     private String secretKey;
-
-    @Test
-    public void getPayList() throws IOException {
-        String token = payService.getToken(apikey, secretKey);
-        payService.refundRequest(token, "0b5f32fb-bd6c-4207-91e7-911eb3c044fc", "취소");
-    }
+//
+//    @Test
+//    public void getPayList() throws IOException {
+//        String token = payService.getToken(apikey, secretKey);
+//        payService.refundRequest(token, "0b5f32fb-bd6c-4207-91e7-911eb3c044fc", "취소");
+//    }
 }

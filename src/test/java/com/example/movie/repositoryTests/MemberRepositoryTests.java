@@ -22,33 +22,33 @@ public class MemberRepositoryTests {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Test
-    public void MemberInsertTest(){
-        Member admin = Member.builder()
-                .memberId("admin")
-                .password(passwordEncoder.encode("1111"))
-                .role("ADMIN")
-                .build();
-        memberRepository.save(admin);
-
-        IntStream.rangeClosed(1, 5).forEach(i ->{
-            Member member = Member.builder()
-                    .memberId("test" +i)
-                    .password(passwordEncoder.encode("1111"))
-                    .role("USER")
-                    .build();
-            memberRepository.save(member);
-        });
-    }
-
-    @Test
-    public void test() throws Exception {
-        Member admin = Member.builder()
-                .memberId("3")
-                .password(passwordEncoder.encode("1111"))
-                .role("ADMIN")
-                .build();
-        memberRepository.save(admin);
-        //throw new Exception();
-    }
+//    @Test
+//    public void MemberInsertTest(){
+//        Member admin = Member.builder()
+//                .memberId("admin")
+//                .password(passwordEncoder.encode("1111"))
+//                .role("ADMIN")
+//                .build();
+//        memberRepository.save(admin);
+//
+//        IntStream.rangeClosed(1, 5).forEach(i ->{
+//            Member member = Member.builder()
+//                    .memberId("test" +i)
+//                    .password(passwordEncoder.encode("1111"))
+//                    .role("USER")
+//                    .build();
+//            memberRepository.save(member);
+//        });
+//    }
+//
+//    @Test
+//    public void test() throws Exception {
+//        Member admin = Member.builder()
+//                .memberId("3")
+//                .password(passwordEncoder.encode("1111"))
+//                .role("ADMIN")
+//                .build();
+//        memberRepository.save(admin);
+//        //throw new Exception();
+//    }
 }

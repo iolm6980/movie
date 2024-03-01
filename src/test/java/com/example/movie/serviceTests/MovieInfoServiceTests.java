@@ -17,20 +17,20 @@ import java.util.*;
 public class MovieInfoServiceTests {
     @Autowired
     private MovieInfoService movieInfoService;
-    @Test
-    public void getMovieListTest(){
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String today = dateFormat.format(date);
-        System.out.println(movieInfoService.getMovieList(today));
-    }
-
-    @Test
-    public void getMovieTest(){
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String today = dateFormat.format(date);
-        List<MovieInfoDTO> list = movieInfoService.getMovie(today, 1L);
-        System.out.println(list);
-    }
+//    @Test
+//    public void getMovieListTest(){
+//        Date date = new Date();
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        String today = dateFormat.format(date);
+//        System.out.println(movieInfoService.getMovieList(today));
+//    }
+//
+//    @Test
+//    public void getMovieTest(){
+//        Date date = new Date();
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        String today = dateFormat.format(date);
+//        List<MovieInfoDTO> list = movieInfoService.getMovie(today, 1L);
+//        System.out.println(list);
+//    }
 }

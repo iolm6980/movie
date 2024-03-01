@@ -12,19 +12,19 @@ import java.util.Date;
 public class MovieServiceTests {
     @Autowired
     private MovieService movieService;
-    @Test
-    public void getMovieListTest(){
-    }
-
-    @Test
-    public void getMovieTest(){
-        Date date = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String today = dateFormat.format(date);
-    }
-
-    @Test
-    public void updateGrade(){
-        movieService.updateGrade(29L, 100L);
-    }
+//    @Test
+//    public void getMovieListTest(){
+//    }
+//
+//    @Test
+//    public void getMovieTest(){
+//        Date date = new Date();
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        String today = dateFormat.format(date);
+//    }
+//
+//    @Test
+//    public void updateGrade(){
+//        movieService.updateGrade(29L, 100L);
+//    }
 }

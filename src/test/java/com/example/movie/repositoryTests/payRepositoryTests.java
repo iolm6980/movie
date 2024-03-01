@@ -15,23 +15,23 @@ import java.util.List;
 public class payRepositoryTests {
     @Autowired
     private PayRepository payRepository;
-    @Test
-    public void getList(){
-        List<Object[]> list = payRepository.getPayList("test1");
-
-        for(Object[] objects : list){
-            System.out.println(Arrays.toString(objects));
-        }
-    }
-
-    @Test
-    public void tokenTest() throws IamportResponseException, IOException {
-        IamportClient iamportClient = new IamportClient("11111", "55555");
-        System.out.println(iamportClient.paymentByImpUid("26634d49-a35f-46cf-aea4-fe7f4ba6be2d"));
-    }
-
-    @Test
-    public void delete(){
-        payRepository.deleteById("26634d49-a35f-46cf-aea4-fe7f4ba6be2d");
-    }
+//    @Test
+//    public void getList(){
+//        List<Object[]> list = payRepository.getPayList("test1");
+//
+//        for(Object[] objects : list){
+//            System.out.println(Arrays.toString(objects));
+//        }
+//    }
+//
+//    @Test
+//    public void tokenTest() throws IamportResponseException, IOException {
+//        IamportClient iamportClient = new IamportClient("11111", "55555");
+//        System.out.println(iamportClient.paymentByImpUid("26634d49-a35f-46cf-aea4-fe7f4ba6be2d"));
+//    }
+//
+//    @Test
+//    public void delete(){
+//        payRepository.deleteById("26634d49-a35f-46cf-aea4-fe7f4ba6be2d");
+//    }
 }

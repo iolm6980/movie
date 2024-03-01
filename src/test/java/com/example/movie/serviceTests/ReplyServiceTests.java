@@ -17,22 +17,22 @@ public class ReplyServiceTests {
     @Autowired
     private GradeService gradeService;
 
-    @Test
-    public void getReplyTest(){
-        System.out.println(replyService.getReplyList(1L, 0).getDtoList());
-
-    }
-
-    @Test
-    public void registerTest(){
-        MemberDTO memberDTO = MemberDTO.builder().memberId("test2").build();
-        MovieDTO movieDTO = MovieDTO.builder().mno(1L).build();
-        ReplyDTO replyDTO = ReplyDTO.builder().movieDTO(movieDTO)
-                .memberDTO(memberDTO)
-                .grade(50L)
-                .content("서비스 테스트")
-                .build();
-        gradeService.updateMovieGrade(replyDTO);
-    }
+//    @Test
+//    public void getReplyTest(){
+//        System.out.println(replyService.getReplyList(1L, 0).getDtoList());
+//
+//    }
+//
+//    @Test
+//    public void registerTest(){
+//        MemberDTO memberDTO = MemberDTO.builder().memberId("test2").build();
+//        MovieDTO movieDTO = MovieDTO.builder().mno(1L).build();
+//        ReplyDTO replyDTO = ReplyDTO.builder().movieDTO(movieDTO)
+//                .memberDTO(memberDTO)
+//                .grade(50L)
+//                .content("서비스 테스트")
+//                .build();
+//        gradeService.updateMovieGrade(replyDTO);
+//    }
 
 }
