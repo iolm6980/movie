@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  mariadb-container:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: 6980
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: movie
+      MYSQL_PASSWORD: movie
+    ports:
+      - "3306:3306"
+    networks:
+      - movie-network
+
+  movie-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      DATABASE_URL: jdbc:mariadb://mariadb-container:3306/mydatabase
+      DATABASE_USERNAME: movie
+      DATABASE_PASSWORD: movie
+    depends_on:
+      - mariadb-container
+    networks:
+      - movie-network
+
+networks:
+  movie-network:
