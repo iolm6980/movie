@@ -2,6 +2,7 @@ version: '3'
 
 services:
   mariadb-container:
+    container_name: mariadb-container
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: 6980
