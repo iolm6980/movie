@@ -13,6 +13,8 @@ services:
       - "3306:3306"
     networks:
       - movie-network
+    volumes:
+      - mariadb-data:/var/lib/mysql
 
   movie-server:
     container_name: movie-server
@@ -20,7 +22,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - "8081:8081"
     environment:
       DATABASE_URL: jdbc:mariadb://mariadb-container:3306/mydatabase
       DATABASE_USERNAME: movie
@@ -32,3 +34,6 @@ services:
 
 networks:
   movie-network:
+
+volumes:
+  mariadb-data:
