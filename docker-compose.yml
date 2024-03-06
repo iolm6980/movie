@@ -15,6 +15,7 @@ services:
       - movie-network
 
   movie-server:
+    container_name: movie-server
     build:
       context: .
       dockerfile: Dockerfile
