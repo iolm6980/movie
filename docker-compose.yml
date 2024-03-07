@@ -18,6 +18,7 @@ services:
 
   movie-server:
     container_name: movie-server
+    image: movie-image
     ports:
       - "8080:8080"
     environment:
