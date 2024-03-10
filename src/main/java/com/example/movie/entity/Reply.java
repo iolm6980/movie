@@ -1,6 +1,8 @@
 package com.example.movie.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @ToString
@@ -13,7 +15,9 @@ public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rno;
+    @NotBlank
     private String content;
+    @NotNull
     private Long grade;
 
     @ManyToOne(fetch = FetchType.LAZY)

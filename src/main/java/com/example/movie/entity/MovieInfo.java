@@ -1,6 +1,7 @@
 package com.example.movie.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
@@ -14,9 +15,12 @@ public class MovieInfo{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mino;
+    @NotNull
     private String date;
+    @NotNull
     private String place;
     private String seat;
+    @NotNull
     private String startTime;
 
     @ManyToOne(fetch = FetchType.LAZY)

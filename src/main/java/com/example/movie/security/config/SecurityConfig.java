@@ -70,7 +70,7 @@ public class SecurityConfig {
                                 .requestMatchers("/css/**","/js/**", "/img/**").permitAll()
                                 )
                 .csrf((csrf) -> csrf.disable())
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+               // .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .formLogin(login -> login.loginPage("/member/login")
                         .usernameParameter("username")
                         .passwordParameter("password")

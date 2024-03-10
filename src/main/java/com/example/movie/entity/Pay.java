@@ -1,6 +1,7 @@
 package com.example.movie.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Builder
@@ -12,7 +13,9 @@ import lombok.*;
 public class Pay {
     @Id
     private String pid;
+    @NotNull
     private String reserveSeat;
+    @NotNull
     private int totalPrice;
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
