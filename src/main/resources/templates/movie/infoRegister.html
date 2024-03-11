@@ -4,6 +4,9 @@
     <div th:replace="~{layout/layout :: head}"></div>
 </head>
 <body>
+<script th:inline="javascript" th:if="${not #strings.isEmpty(error)}">
+        alert([[${exception}]]);
+</script>
 <div class="d-flex" id="wrapper">
     <div th:replace="~{layout/layout :: side}"></div>
     <div id="page-content-wrapper">

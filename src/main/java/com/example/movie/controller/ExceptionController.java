@@ -23,7 +23,6 @@ public class ExceptionController {
     public void methodConstraintViolationException(MethodArgumentNotValidException e, HttpServletRequest request, HttpServletResponse response) throws IOException {
         String errorMsg = URLEncoder.encode(e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
         System.out.println("에러메시지" + errorMsg);
-        System.out.println("에러위치" + request.getRequestURL());
         response.sendRedirect(request.getRequestURL() + "?error=true&exception="+errorMsg);
     }
 

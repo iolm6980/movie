@@ -5,6 +5,9 @@
     <link href="/css/detail-styles.css" rel="stylesheet" />
 </head>
 <body>
+<script th:inline="javascript" th:if="${not #strings.isEmpty(error)}">
+        alert([[${exception}]]);
+</script>
 <div class="d-flex" id="wrapper">
     <div th:replace="~{layout/layout :: side}"></div>
     <div id="page-content-wrapper">
@@ -74,19 +77,19 @@
                 <button class="btn btn-outline-secondary" onclick="hideModal()">X</button>
             </div>
             <form action="/reply/register" method="post" class="reply-form">
-            <div class="modal-body reply-modal-body py-sm-5">
-                    <input type="text" name="content" style="width:100%; height:200px;">
-                    <input type="hidden" name="movieDTO.mno" th:value="${movieInfoList[0].movieDTO.mno}">
-                    <input type="hidden" name="memberDTO.memberId" th:value="${auth.username}">
-            </div>
-            <div class="modal-footer">
-                <span class="star-input">
-                  ★★★★★
-                  <span>★★★★★</span>
-                  <input type="range" oninput="drawStar(this)" name="grade" value="1" step="1" min="0" max="100">
-                </span>
-                <button class="ms-sm-auto btn btn-outline-dark reply-register-btn" type="button">작성하기</button>
-            </div>
+                <div class="modal-body reply-modal-body py-sm-5">
+                        <input type="text" name="content" style="width:100%; height:200px;" required>
+                        <input type="hidden" name="movieDTO.mno" th:value="${movieInfoList[0].movieDTO.mno}" >
+                        <input type="hidden" name="memberDTO.memberId" th:value="${auth.username}" >
+                </div>
+                <div class="modal-footer">
+                    <span class="star-input">
+                      ★★★★★
+                      <span>★★★★★</span>
+                      <input type="range" oninput="drawStar(this)" name="grade" value="1" step="1" min="0" max="100" required>
+                    </span>
+                    <button class="ms-sm-auto btn btn-outline-dark reply-register-btn" type="button">작성하기</button>
+                </div>
             </form>
         </div>
     </div>

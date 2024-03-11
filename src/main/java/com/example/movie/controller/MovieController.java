@@ -60,7 +60,8 @@ public class MovieController {
     }
 
     @GetMapping("/detail")
-    public void detail(String date, Long mno, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO){
+    public void detail(String date, Long mno, Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO,
+                       @RequestParam(required = false) String error, @RequestParam(required = false) String exception){
         System.out.println("date: " + date + " name: " + mno);
         System.out.println("authMemberDTO: " + authMemberDTO.getAuthorities());
         List<MovieInfoDTO> movieDTOList = movieInfoService.getMovie(date, mno);
@@ -72,6 +73,8 @@ public class MovieController {
         });
         model.addAttribute("movieInfoList", movieDTOList);
         model.addAttribute("auth", authMemberDTO);
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
     }
 
     @PostMapping("/seat")
@@ -83,7 +86,8 @@ public class MovieController {
 
 
     @GetMapping("/movieRegister")
-    public void getMovieRegister(Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO, @RequestParam(required = false) String error, @RequestParam(required = false) String exception){
+    public void getMovieRegister(Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO, 
+                                 @RequestParam(required = false) String error, @RequestParam(required = false) String exception){
         model.addAttribute("auth", authMemberDTO);
         model.addAttribute("error", error);
         model.addAttribute("exception", exception);
@@ -106,12 +110,15 @@ public class MovieController {
     }
 
     @GetMapping("/infoRegister")
-    public void getInfoRegister(Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO){
+    public void getInfoRegister(Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO,
+                                @RequestParam(required = false) String error, @RequestParam(required = false) String exception){
         List<MovieDTO> movieDTOList = movieService.getMovieList();
         List<MovieInfoDTO> movieInfoDTOList = movieInfoService.getMovieList("2024-02-08");
         model.addAttribute("movieDTOList", movieDTOList);
         model.addAttribute("movieInfoDTOList", movieInfoDTOList);
         model.addAttribute("auth", authMemberDTO);
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
     }
     @ResponseBody
     @PostMapping("/infoRegister")

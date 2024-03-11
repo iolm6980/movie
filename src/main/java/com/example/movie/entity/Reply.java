@@ -15,7 +15,7 @@ public class Reply {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long rno;
-    @NotBlank
+    @NotBlank(message = "감상평을 작성해주세요")
     private String content;
     @NotNull
     private Long grade;

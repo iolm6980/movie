@@ -5,6 +5,7 @@ import com.example.movie.dto.ReplyDTO;
 import com.example.movie.service.GradeService;
 import com.example.movie.service.ReplyService;
 import com.nimbusds.jose.Header;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,7 +31,7 @@ public class ReplyController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     @PostMapping("/register")
-    public ResponseEntity<?> replyRegister(@RequestBody ReplyDTO replyDTO){
+    public ResponseEntity<?> replyRegister(@RequestBody @Valid ReplyDTO replyDTO){
         System.out.println("reply........" + replyDTO);
         gradeService.updateMovieGrade(replyDTO);
         return new ResponseEntity<>(HttpStatus.OK);
