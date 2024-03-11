@@ -15,12 +15,12 @@ public class MovieInfo{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mino;
-    @NotNull
+    @NotNull(message = "날짜를 입력해주세요")
     private String date;
-    @NotNull
+    @NotNull(message = "상영관를 입력해주세요")
     private String place;
     private String seat;
-    @NotNull
+    @NotNull(message = "영화 시작시간을 입력해주세요")
     private String startTime;
 
     @ManyToOne(fetch = FetchType.LAZY)

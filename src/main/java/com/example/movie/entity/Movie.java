@@ -17,16 +17,16 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mno;
-    @NotBlank
+    @NotBlank(message = "영화이름을 입력해주세요")
     private String name;
-    @NotNull
+    @NotNull(message = "상영시간을 입력해주세요")
     private int time;
-    @NotNull
+    @NotNull(message = "줄거리를 입력해주세요")
     private String summary;
     private Long totalGrade;
-    @NotNull
+    @NotNull(message = "이미지 경로가 비어있습니다")
     private String path;
-    @NotNull
+    @NotNull(message = "이미지 이름이 비어있습니다")
     private String imgName;
 
 }

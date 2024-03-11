@@ -20,7 +20,6 @@ public class Member {
     @Pattern(regexp = "[a-z0-9]*$", message = "아이디 형식이 일치하지 않습니다")
     private String memberId;
 
-    @NotNull
     @Size(min = 8, message = "비밀번호는 8자리 이상입력해야합니다")
     private String password;
     private String role;

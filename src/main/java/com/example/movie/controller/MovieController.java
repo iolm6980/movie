@@ -6,6 +6,7 @@ import com.example.movie.security.dto.AuthMemberDTO;
 import com.example.movie.service.MovieInfoService;
 import com.example.movie.service.MovieService;
 import com.example.movie.service.SeatService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -82,12 +83,14 @@ public class MovieController {
 
 
     @GetMapping("/movieRegister")
-    public void getMovieRegister(Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO){
+    public void getMovieRegister(Model model, @AuthenticationPrincipal AuthMemberDTO authMemberDTO, @RequestParam(required = false) String error, @RequestParam(required = false) String exception){
         model.addAttribute("auth", authMemberDTO);
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
     }
 
     @PostMapping("/movieRegister")
-    public String postMovieRegister(@RequestParam MultipartFile file, MovieDTO movieDTO) throws IOException {
+    public String postMovieRegister(@RequestParam MultipartFile file,@Valid MovieDTO movieDTO) throws IOException {
         String originalName = file.getOriginalFilename();
         String uuid = UUID.randomUUID().toString();
         String saveName = uploadPath + File.separator + uuid + "_" + originalName;
@@ -112,7 +115,7 @@ public class MovieController {
     }
     @ResponseBody
     @PostMapping("/infoRegister")
-    public ResponseEntity<?> postInfoRegister(@RequestBody List<MovieInfoDTO> movieInfoDTOList){
+    public ResponseEntity<?> postInfoRegister(@RequestBody @Valid List<MovieInfoDTO> movieInfoDTOList){
         System.out.println("infoRegister............" + movieInfoDTOList);
         movieInfoService.infoRegister(movieInfoDTOList);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -126,21 +129,11 @@ public class MovieController {
 
     @ResponseBody
     @PostMapping("/infoModify")
-    public ResponseEntity<?> postInfoModify(@RequestBody MovieInfoDTO movieInfoDTO){
+    public ResponseEntity<?> postInfoModify(@RequestBody @Valid MovieInfoDTO movieInfoDTO){
         System.out.println("infoModify............" + movieInfoDTO);
         seatService.infoModify(movieInfoDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/testPut")
-    public void testPut(MovieDTO movieDTO){
-        System.out.println("테스트2............");
-        movieService.movieRegister(movieDTO);
-    }
-    @PostMapping("/testPost")
-    public void testPost(MovieDTO movieDTO){
-        System.out.println("테스트1............");
-        movieService.movieRegister(movieDTO);
-    }
 
 }

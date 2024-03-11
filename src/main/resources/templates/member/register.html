@@ -25,10 +25,13 @@
             <div class="form-group d-flex">
               <input for="password" name="password" id="password" type="password" class="form-control rounded-left" placeholder="password" required>
             </div>
+            <span th:if="${not #strings.isEmpty(error)}">
+              <p id="valid" class="alert alert-danger">[[${exception}]]</p>
+            </span>
+            <div class="form-group">
+              <button class="form-control btn btn-primary rounded submit px-3 register" type="submit" >Register</button>
+            </div>
           </form>
-          <div class="form-group">
-            <button class="form-control btn btn-primary rounded submit px-3 register" type="submit" onclick="register()">Register</button>
-          </div>
 
         </div>
       </div>
